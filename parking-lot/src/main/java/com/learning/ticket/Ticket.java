@@ -1,9 +1,9 @@
 package com.learning.ticket;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public record Ticket(
-        Date issueTime,
+        LocalDateTime issueTime,
         String vehicleRegistrationNo,
         int parkingFloorNo,
         int parkingSpotId,

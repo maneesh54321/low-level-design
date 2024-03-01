@@ -32,4 +32,6 @@ public class ParkingSpot {
     public ParkingFloor getParkingFloor() {
         return parkingFloor;
     }
+
+    public void vacate() { occupied = false; }
 }

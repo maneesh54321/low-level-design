@@ -3,7 +3,7 @@ package com.learning.parking;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class EntranceGate {
+public class Gate {
     private boolean open;
 
     public boolean isOpen() {
@@ -13,7 +13,7 @@ public class EntranceGate {
     public void open() {
         this.open = true;
         Timer timer = new Timer();
-        timer.schedule(new GateCloseTask(this), 5000);
+        timer.schedule(new GateCloseTask(this, timer), 5000);
     }
 
     public void close() {
@@ -22,16 +22,18 @@ public class EntranceGate {
 
     private static class GateCloseTask extends TimerTask {
 
-        private final EntranceGate gate;
+        private final Gate gate;
+        private final Timer timer;
 
-        public GateCloseTask(EntranceGate gate) {
+        public GateCloseTask(Gate gate, Timer timer) {
             this.gate = gate;
+            this.timer = timer;
         }
 
         @Override
         public void run() {
             this.gate.close();
-            this.cancel();
+            timer.cancel();
         }
     }
 }
