@@ -8,10 +8,10 @@ import java.util.Optional;
 
 public class CheckInKiosk {
     private final Gate entranceGate;
-    private final ParkingLot parkingLot;
+    private final ConcreteParkingLot parkingLot;
     private final TicketGenerator ticketGenerator;
 
-    public CheckInKiosk(Gate entranceGate, ParkingLot parkingLot, TicketGenerator ticketGenerator) {
+    public CheckInKiosk(Gate entranceGate, ConcreteParkingLot parkingLot, TicketGenerator ticketGenerator) {
         this.entranceGate = entranceGate;
         this.parkingLot = parkingLot;
         this.ticketGenerator = ticketGenerator;

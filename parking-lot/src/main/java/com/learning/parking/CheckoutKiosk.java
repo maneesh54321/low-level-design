@@ -17,10 +17,10 @@ public class CheckoutKiosk {
     private final PaymentCalculator paymentCalculator;
     private final PaymentAcceptor paymentAcceptor;
     private final Gate exitGate;
-    private final ParkingLot parkingLot;
+    private final ConcreteParkingLot parkingLot;
 
     public CheckoutKiosk(TicketScanner ticketScanner, TicketValidator ticketValidator, PaymentCalculator paymentCalculator,
-                         PaymentAcceptor paymentAcceptor, Gate exitGate, ParkingLot parkingLot) {
+                         PaymentAcceptor paymentAcceptor, Gate exitGate, ConcreteParkingLot parkingLot) {
         this.ticketScanner = ticketScanner;
         this.ticketValidator = ticketValidator;
         this.paymentCalculator = paymentCalculator;
