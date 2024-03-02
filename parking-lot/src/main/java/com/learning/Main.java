@@ -45,22 +45,21 @@ public class Main {
               .forEachOrdered(
                   idx ->
                       parkingFloor.addParkingSpot(
-                          new ParkingSpot(idx, false, ParkingSpotType.COMPACT, parkingFloor)));
+                          new CompactParkingSpot(idx, false, parkingFloor)));
           IntStream.range(0, Integer.parseInt(spots[1]))
               .forEachOrdered(
                   idx ->
-                      parkingFloor.addParkingSpot(
-                          new ParkingSpot(idx, false, ParkingSpotType.LARGE, parkingFloor)));
+                      parkingFloor.addParkingSpot(new LargeParkingSpot(idx, false, parkingFloor)));
           IntStream.range(0, Integer.parseInt(spots[2]))
               .forEachOrdered(
                   idx ->
                       parkingFloor.addParkingSpot(
-                          new ParkingSpot(idx, false, ParkingSpotType.MOTORCYCLE, parkingFloor)));
+                          new MotorCycleParkingSpot(idx, false, parkingFloor)));
           IntStream.range(0, Integer.parseInt(spots[3]))
               .forEachOrdered(
                   idx ->
                       parkingFloor.addParkingSpot(
-                          new ParkingSpot(idx, false, ParkingSpotType.HANDICAP, parkingFloor)));
+                          new HandicapParkingSpot(idx, false, parkingFloor)));
           parkingLot.addParkingFloor(parkingFloor);
         }
       }
@@ -72,17 +71,20 @@ public class Main {
       try (FileOutputStream ticketOutStream = new FileOutputStream(ticketFileLocation)) {
         TicketGenerator ticketGenerator = new TicketGenerator(ticketOutStream);
         CheckInKiosk checkInKiosk = new CheckInKiosk(entranceGate, parkingLot, ticketGenerator);
+        System.out.println();
         checkInKiosk.checkIn(new Vehicle("KA04HG3670", VehicleType.CAR), true);
       }
+      System.out.println();
       System.out.println("Watching movie...");
       Thread.sleep(5000);
       System.out.println("Done watching movie...");
       System.out.println("Going to parking...");
       System.out.println("Taking my vehicle to exit gate...");
+      System.out.println();
       // checkout begins
       CheckoutKiosk checkoutKiosk = createCheckoutKiosk(parkingLot);
       try (var ticketInputStream = new FileInputStream(ticketFileLocation)) {
-//        checkoutKiosk.checkout(ticketInputStream, PaymentType.CREDIT_CARD);
+        //        checkoutKiosk.checkout(ticketInputStream, PaymentType.CREDIT_CARD);
         checkoutKiosk.checkout(ticketInputStream, PaymentType.CASH);
       }
     } catch (IOException | URISyntaxException | InterruptedException e) {

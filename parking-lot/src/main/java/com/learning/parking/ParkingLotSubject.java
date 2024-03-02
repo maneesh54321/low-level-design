@@ -2,6 +2,8 @@ package com.learning.parking;
 
 import com.learning.display.Observer;
 import com.learning.display.Subject;
+import com.learning.vehicle.Vehicle;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,13 +38,13 @@ public class ParkingLotSubject implements ParkingLot, Subject {
 	}
 
 	@Override
-	public boolean hasParkingSpotAvailable(ParkingSpotType parkingSpotType) {
-		return parkingLot.hasParkingSpotAvailable(parkingSpotType);
+	public boolean hasParkingSpotAvailable(Vehicle vehicle) {
+		return parkingLot.hasParkingSpotAvailable(vehicle);
 	}
 
 	@Override
-	public Optional<ParkingSpot> occupyAvailableParkingSpot(ParkingSpotType parkingSpotType) {
-		Optional<ParkingSpot> parkingSpot = parkingLot.occupyAvailableParkingSpot(parkingSpotType);
+	public Optional<ParkingSpot> occupyAvailableParkingSpot(Vehicle vehicle) {
+		Optional<ParkingSpot> parkingSpot = parkingLot.occupyAvailableParkingSpot(vehicle);
 		parkingSpot.ifPresent(ps -> notifyObservers());
 		return parkingSpot;
 	}
@@ -54,7 +56,7 @@ public class ParkingLotSubject implements ParkingLot, Subject {
 	}
 
 	@Override
-	public Map<ParkingSpotType, Long> getFreeParkingSpots() {
+	public Map<String, Long> getFreeParkingSpots() {
 		return parkingLot.getFreeParkingSpots();
 	}
 

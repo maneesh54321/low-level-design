@@ -24,7 +24,7 @@ public class TicketGenerator {
                     vehicle.getRegNo(),
                     ps.getParkingFloor().floorNumber(),
                     ps.getId(),
-                    ps.getType().name()))
+                    ps.getType()))
         .ifPresent(tk -> printTicket(tk, outputStream));
   }
 

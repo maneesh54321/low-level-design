@@ -1,6 +1,5 @@
 package com.learning.parking;
 
-import com.learning.ticket.Ticket;
 import com.learning.ticket.TicketGenerator;
 import com.learning.vehicle.Vehicle;
 import java.util.Optional;
@@ -18,11 +17,9 @@ public class CheckInKiosk {
 
   public void checkIn(Vehicle vehicle, boolean disabilityCardAvailable) {
     System.out.println("Starting checking in...");
-    ParkingSpotType parkingSpotType =
-        determineRequiredParkingSpot(vehicle, disabilityCardAvailable);
-    if (parkingLot.hasParkingSpotAvailable(parkingSpotType)) {
+    if (parkingLot.hasParkingSpotAvailable(vehicle)) {
       System.out.println("Parking spot is available for the vehicle, booking it!!");
-      Optional<ParkingSpot> parkingSpot = parkingLot.occupyAvailableParkingSpot(parkingSpotType);
+      Optional<ParkingSpot> parkingSpot = parkingLot.occupyAvailableParkingSpot(vehicle);
       parkingSpot
           .ifPresent(
               ps -> {
@@ -33,17 +30,5 @@ public class CheckInKiosk {
     } else {
       System.out.println("Parking spot not available!!");
     }
-  }
-
-  private static ParkingSpotType determineRequiredParkingSpot(
-      Vehicle vehicle, boolean disabledPerson) {
-    return switch (vehicle.getType()) {
-      case CAR -> {
-        if (disabledPerson) yield ParkingSpotType.HANDICAP;
-        yield ParkingSpotType.COMPACT;
-      }
-      case TRUCK, VAN -> ParkingSpotType.LARGE;
-      case MOTORCYCLE -> ParkingSpotType.MOTORCYCLE;
-    };
   }
 }

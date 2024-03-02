@@ -11,7 +11,7 @@ public record ParkingFloor(int floorNumber, List<ParkingSpot> parkingSpots) {
     if (parkingSpot != null) parkingSpots.add(parkingSpot);
   }
 
-  public Map<ParkingSpotType, Long> getFreeParkingSpots() {
+  public Map<String, Long> getFreeParkingSpots() {
     Predicate<ParkingSpot> isOccupied = ParkingSpot::isOccupied;
     return parkingSpots.stream()
         .filter(isOccupied.negate())

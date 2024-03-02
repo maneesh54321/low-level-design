@@ -1,14 +1,14 @@
 package com.learning.display;
 
 import com.learning.parking.ParkingLot;
-import com.learning.parking.ParkingSpotType;
+
 import java.util.Map;
 
 public class ParkingLotMetricsDisplay implements Display, Observer {
 
 	private final Subject subject;
 
-	private Map<ParkingSpotType, Long> freeParkingSpots;
+	private Map<String, Long> freeParkingSpots;
 
 	public ParkingLotMetricsDisplay(Subject subject) {
 		this.subject = subject;

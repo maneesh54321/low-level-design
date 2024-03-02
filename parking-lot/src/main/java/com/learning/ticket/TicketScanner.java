@@ -1,7 +1,5 @@
 package com.learning.ticket;
 
-import com.learning.parking.ParkingSpotType;
-
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.Optional;

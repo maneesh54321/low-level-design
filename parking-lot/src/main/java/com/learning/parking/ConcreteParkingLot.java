@@ -1,5 +1,7 @@
 package com.learning.parking;
 
+import com.learning.vehicle.Vehicle;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,13 +9,13 @@ import java.util.Optional;
 
 public record ConcreteParkingLot(List<ParkingFloor> parkingFloors) implements ParkingLot {
 
-  public boolean hasParkingSpotAvailable(ParkingSpotType parkingSpotType) {
+  public boolean hasParkingSpotAvailable(Vehicle vehicle) {
     return parkingFloors.stream()
         .flatMap(parkingFloor -> parkingFloor.parkingSpots().stream())
         .anyMatch(parkingSpot -> !parkingSpot.isOccupied());
   }
 
-  public Optional<ParkingSpot> occupyAvailableParkingSpot(ParkingSpotType parkingSpotType) {
+  public Optional<ParkingSpot> occupyAvailableParkingSpot(Vehicle vehicle) {
     return parkingFloors.stream()
         .flatMap(parkingFloor -> parkingFloor.parkingSpots().stream())
         .filter(parkingSpot -> !parkingSpot.isOccupied())
@@ -33,8 +35,8 @@ public record ConcreteParkingLot(List<ParkingFloor> parkingFloors) implements Pa
   }
 
   @Override
-  public Map<ParkingSpotType, Long> getFreeParkingSpots() {
-    var result = new HashMap<ParkingSpotType, Long>();
+  public Map<String, Long> getFreeParkingSpots() {
+    var result = new HashMap<String, Long>();
     parkingFloors.forEach(
         parkingFloor -> {
           var freeParkingSpots = parkingFloor.getFreeParkingSpots();
