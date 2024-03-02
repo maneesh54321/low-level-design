@@ -4,7 +4,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Gate {
-    private boolean open;
+
+    private final int gateNo;
+    private boolean open = false;
+
+    public Gate(int gateNo) {
+        this.gateNo = gateNo;
+    }
 
     public boolean isOpen() {
         return open;
@@ -12,8 +18,13 @@ public class Gate {
 
     public void open() {
         this.open = true;
+        System.out.println("Gate " + gateNo + " opens!!");
         Timer timer = new Timer();
-        timer.schedule(new GateCloseTask(this, timer), 5000);
+        timer.schedule(new GateCloseTask(this, timer), 500);
+    }
+
+    public int getGateNo() {
+        return gateNo;
     }
 
     public void close() {
@@ -33,6 +44,7 @@ public class Gate {
         @Override
         public void run() {
             this.gate.close();
+            System.out.println("Gate " + this.gate.gateNo + " closed!!");
             timer.cancel();
         }
     }

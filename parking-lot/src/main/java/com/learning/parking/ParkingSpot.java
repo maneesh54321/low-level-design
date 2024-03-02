@@ -34,4 +34,14 @@ public class ParkingSpot {
     }
 
     public void vacate() { occupied = false; }
+
+    @Override
+    public String toString() {
+        return "ParkingSpot{" +
+                "id=" + id +
+                ", occupied=" + occupied +
+                ", type=" + type +
+                ", parkingFloor=" + parkingFloor +
+                '}';
+    }
 }

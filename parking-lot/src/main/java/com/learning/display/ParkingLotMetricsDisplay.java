@@ -19,7 +19,7 @@ public class ParkingLotMetricsDisplay implements Display, Observer {
 	@Override
 	public void display() {
 		assert freeParkingSpots != null;
-		System.out.println(freeParkingSpots);
+		System.out.println("Displaying available parking spots: " + freeParkingSpots);
 	}
 
 	@Override

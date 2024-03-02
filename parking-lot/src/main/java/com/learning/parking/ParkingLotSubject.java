@@ -57,4 +57,9 @@ public class ParkingLotSubject implements ParkingLot, Subject {
 	public Map<ParkingSpotType, Long> getFreeParkingSpots() {
 		return parkingLot.getFreeParkingSpots();
 	}
+
+	@Override
+	public void addParkingFloor(ParkingFloor parkingFloor) {
+		this.parkingLot.addParkingFloor(parkingFloor);
+	}
 }

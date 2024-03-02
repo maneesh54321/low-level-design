@@ -26,7 +26,7 @@ public class ParkingLotStatusDisplay implements Display, Observer {
 	@Override
 	public void update(Subject subject) {
 		if(subject instanceof ParkingLot parkingLot){
-			parkingSpotsFree = parkingLot.getFreeParkingSpots().isEmpty();
+			parkingSpotsFree = !parkingLot.getFreeParkingSpots().isEmpty();
 			display();
 		}
 	}

@@ -11,4 +11,6 @@ public interface ParkingLot {
 	void vacateParkingSpot(int floorNo, int id);
 
 	Map<ParkingSpotType, Long> getFreeParkingSpots();
+
+	void addParkingFloor(ParkingFloor parkingFloor);
 }
