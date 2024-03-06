@@ -13,7 +13,7 @@ public abstract class Piece {
     return color;
   }
 
-  protected Cell getCell() {
+  public Cell getCell() {
     return cell;
   }
 

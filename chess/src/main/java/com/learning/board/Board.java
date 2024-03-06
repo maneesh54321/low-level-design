@@ -1,7 +1,10 @@
 package com.learning.board;
 
+import com.learning.exception.GameOverException;
 import com.learning.exception.InvalidPositionException;
+import com.learning.units.King;
 import com.learning.units.Piece;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public record Board(Row[] rows) {
@@ -16,19 +19,30 @@ public record Board(Row[] rows) {
     throw new InvalidPositionException();
   }
 
-  public void removePiece(Position position) throws InvalidPositionException {
-    if(isValidPosition.test(position)){
-      rows[position.row()].cells()[position.col()].setPiece(null);
+  private void removePiece(Piece piece) {
+    piece.getCell().setPiece(null);
+    piece.moveToCell(null);
+  }
+
+  private boolean isValid(Piece piece, Move move) {
+    return piece.validateMovement(move.cells());
+  }
+
+  public boolean execute(Piece piece, Move move) throws GameOverException {
+    if(isValid(piece, move)){
+      Cell srcCell = move.cells().getFirst();
+      Cell targetCell = move.cells().getLast();
+      Piece enemyPiece = targetCell.getPiece();
+      targetCell.setPiece(piece);
+      piece.moveToCell(targetCell);
+      srcCell.setPiece(null);
+      Optional.of(enemyPiece).ifPresent(this::removePiece);
+      if(enemyPiece instanceof King){
+        throw new GameOverException();
+      }
+      return true;
     }
-    throw new InvalidPositionException();
-  }
-
-  public boolean isValid(Move move) {
     return false;
-  }
-
-  public void execute(Move move) {
-
   }
 
   public Cell getCell(Position position) throws InvalidPositionException {
