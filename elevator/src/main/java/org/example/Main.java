@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import org.example.elevator.Direction;
+import org.example.floor.Floor;
 import org.example.loader.ElevatorSystemLoader;
 
 public class Main {
@@ -13,8 +15,10 @@ public class Main {
 		var elevatorSystemLoader = new ElevatorSystemLoader();
 		elevatorSystemLoader.load(Files.newBufferedReader(
 				Path.of(ClassLoader.getSystemResource("elevator-system.txt").toURI())));
-		var elevatorStations = elevatorSystemLoader.getElevatorStations();
-		elevatorStations.get(4).getFloorPanels().getFirst().pressUpButton();
-		Thread.sleep(6000);
+//		var elevatorStations = elevatorSystemLoader.getElevatorStations();
+		elevatorSystemLoader.getElevatorSystem().assignElevator(new Floor(2), Direction.UP);
+		elevatorSystemLoader.getElevatorSystem().assignElevator(new Floor(4), Direction.UP);
+		elevatorSystemLoader.getElevatorSystem().assignElevator(new Floor(8), Direction.DOWN);
+		Thread.sleep(15000);
 	}
 }

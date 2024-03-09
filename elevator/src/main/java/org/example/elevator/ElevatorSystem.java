@@ -16,6 +16,6 @@ public class ElevatorSystem {
 		elevators.stream()
 				.filter(
 						elevator -> elevator.stops().stream().anyMatch(stop -> stop.getFloor().equals(floor)))
-        .findAny().ifPresent(elevator -> elevator.requestCar(floor, direction));
+        .findAny().ifPresent(elevator -> elevator.requestCar(floor));
 	}
 }

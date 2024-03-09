@@ -8,8 +8,8 @@ import java.util.List;
 
 public record Elevator(List<ElevatorStop> stops, ElevatorCar elevatorCar) {
 
-    public void requestCar(Floor floor, Direction direction) {
-        stops.stream().filter(stop -> stop.getFloor() == floor).findFirst().ifPresent(
+    public void requestCar(Floor floor) {
+        stops.stream().filter(stop -> stop.getFloor().equals(floor)).findFirst().ifPresent(
 		        elevatorCar::driveTo);
     }
 }

@@ -29,5 +29,6 @@ class Stopped implements ElevatorCarState {
     public void move(ElevatorStop elevatorStop) {
         System.out.println("Next stop is: " + elevatorStop);
         elevatorCar.setState(new Moving(elevatorCar));
+        elevatorCar.move(elevatorStop);
     }
 }
