@@ -18,4 +18,11 @@ public class ElevatorStop {
     public Floor getFloor() {
         return floor;
     }
+
+    @Override
+    public String toString() {
+        return "ElevatorStop{" +
+                "floor=" + floor +
+                '}';
+    }
 }
