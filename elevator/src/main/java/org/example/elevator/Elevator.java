@@ -5,20 +5,7 @@ import org.example.floor.Floor;
 
 import java.util.List;
 
-public class Elevator {
-
-    private final List<ElevatorStop> stops;
-
-    private final ElevatorCar elevatorCar;
-
-    public Elevator(List<ElevatorStop> stops, ElevatorCar elevatorCar) {
-        this.stops = stops;
-        this.elevatorCar = elevatorCar;
-    }
-
-    public List<ElevatorStop> getStops(){
-        return this.stops;
-    }
+public record Elevator(List<ElevatorStop> stops, ElevatorCar elevatorCar) {
 
     public void requestCar(Floor floor, Direction direction) {
 
