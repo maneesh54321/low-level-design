@@ -9,8 +9,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class ElevatorCar {
 
-    private final int id;
-
     private final Door door;
 
     private ElevatorStop lastStop;
@@ -19,14 +17,10 @@ public class ElevatorCar {
 
     private ElevatorCarState state;
 
-    public ElevatorCar(int id, Door door) {
-        this.id = id;
+    public ElevatorCar(Door door) {
         this.door = door;
+        state = new Idle(this);
         this.upcomingStops = new UpcomingStops();
-    }
-
-    public int getId() {
-        return id;
     }
 
     void addUpcomingStop(ElevatorStop elevatorStop) {
@@ -61,11 +55,11 @@ public class ElevatorCar {
 
     void launch(ElevatorStop elevatorStop) {
         Thread thread = new Thread(() -> {
+            this.move(elevatorStop);
             while (upcomingStops.hasStop()) {
                 this.move(upcomingStops.getNextStop());
             }
         });
-        thread.setName("Elevator-" + this.id);
         thread.start();
     }
 

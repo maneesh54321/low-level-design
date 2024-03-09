@@ -10,14 +10,15 @@ public class ElevatorFloorPanel {
 
     private final ElevatorStation station;
 
-    public ElevatorFloorPanel(Button upButton, Button downButton, ElevatorStation station) {
-        this.upButton = upButton;
-        this.downButton = downButton;
+    public ElevatorFloorPanel(ElevatorStation station) {
+        this.upButton = new Button();
+        this.downButton = new Button();
         this.station = station;
     }
 
     public void pressUpButton(){
         upButton.press();
+        System.out.println("Up button pressed at station: " + station);
         this.station.requestUp();
     }
 

@@ -9,7 +9,6 @@ public class InActiveButtonState implements ButtonState {
 
     @Override
     public void handlePress() {
-        System.out.println("activating button " + button);
         this.button.setState(new ActiveButtonState(button));
     }
 }

@@ -21,7 +21,7 @@ public class ElevatorStation {
 
     public void requestUp(){
         // Activate all up buttons
-        floorPanels.forEach(ElevatorFloorPanel::pressUpButton);
+//        floorPanels.forEach(ElevatorFloorPanel::pressUpButton);
 
         this.elevatorSystem.assignElevator(floor, Direction.UP);
     }
@@ -31,5 +31,16 @@ public class ElevatorStation {
         floorPanels.forEach(ElevatorFloorPanel::pressDownButton);
 
         this.elevatorSystem.assignElevator(floor, Direction.DOWN);
+    }
+
+    public List<ElevatorFloorPanel> getFloorPanels() {
+        return floorPanels;
+    }
+
+    @Override
+    public String toString() {
+        return "ElevatorStation{" +
+            "floor=" + floor +
+            '}';
     }
 }

@@ -13,7 +13,6 @@ class Idle implements ElevatorCarState {
     @Override
     public void driveTo(ElevatorStop elevatorStop) {
         elevatorCar.addUpcomingStop(elevatorStop);
-        System.out.printf("Elevator-%d is in idle state, Will start moving now%n", elevatorCar.getId());
         elevatorCar.move(elevatorCar.getUpcomingStops().getNextStop());
     }
 

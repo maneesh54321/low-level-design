@@ -5,13 +5,10 @@ import org.example.elevator.Door;
 public class ElevatorStop {
     private final Floor floor;
 
-    private final Door door;
-
     private final AssignStatusDisplay assignStatusDisplay;
 
-    public ElevatorStop(Floor floor, Door door, AssignStatusDisplay assignStatusDisplay) {
+    public ElevatorStop(Floor floor, AssignStatusDisplay assignStatusDisplay) {
         this.floor = floor;
-        this.door = door;
         this.assignStatusDisplay = assignStatusDisplay;
     }
 
