@@ -21,14 +21,14 @@ public class ElevatorStation {
 
     public void requestUp(){
         // Activate all up buttons
-//        floorPanels.forEach(ElevatorFloorPanel::pressUpButton);
+        floorPanels.forEach(ElevatorFloorPanel::activateUpButton);
 
         this.elevatorSystem.callElevator(floor, Direction.UP);
     }
 
     public void requestDown(){
         // Activate all down buttons
-        floorPanels.forEach(ElevatorFloorPanel::pressDownButton);
+        floorPanels.forEach(ElevatorFloorPanel::activateDownButton);
 
         this.elevatorSystem.callElevator(floor, Direction.DOWN);
     }

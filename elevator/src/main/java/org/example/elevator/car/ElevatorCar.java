@@ -2,12 +2,17 @@ package org.example.elevator.car;
 
 import org.example.elevator.Door;
 import org.example.floor.ElevatorStop;
+import org.example.floor.Floor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ElevatorCar {
+
+    private int id;
 
     private final Door door;
 
@@ -17,10 +22,15 @@ public class ElevatorCar {
 
     private ElevatorCarState state;
 
-    public ElevatorCar(Door door) {
+    public ElevatorCar(int id, Door door) {
+        this.id = id;
         this.door = door;
         state = new Idle(this);
         this.upcomingStops = new UpcomingStops();
+    }
+
+    public int getId() {
+        return id;
     }
 
     void addUpcomingStop(ElevatorStop elevatorStop) {
@@ -78,12 +88,12 @@ public class ElevatorCar {
     }
 
     static class UpcomingStops {
-        List<ElevatorStop> stopList;
+        Set<ElevatorStop> stopList;
 
         private final ReentrantLock lock;
 
         public UpcomingStops() {
-            this.stopList = new ArrayList<>();
+            this.stopList = new HashSet<>();
             lock = new ReentrantLock();
         }
 
@@ -103,7 +113,8 @@ public class ElevatorCar {
 
         public ElevatorStop getNextStop() {
             lock.lock();
-            ElevatorStop result = stopList.removeFirst();
+            ElevatorStop result = stopList.iterator().next();
+            stopList.remove(result);
             lock.unlock();
             return result;
         }

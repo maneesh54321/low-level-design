@@ -8,7 +8,13 @@ public class Button {
         this.state = new InActiveButtonState(this);
     }
 
-    public void press() {
+    public void press(boolean activate) {
+        if(activate) {
+            activate();
+        }
+    }
+
+    public void activate() {
         this.state.handlePress();
     }
 

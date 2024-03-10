@@ -28,14 +28,14 @@ class Moving implements ElevatorCarState {
     @Override
     public void move(ElevatorStop elevatorStop) {
         try {
-            System.out.println("Moving to elevator stop: " + elevatorStop);
+            System.out.printf("[ElevatorCar - %d]Moving to elevator stop: %s%n", elevatorCar.getId(), elevatorStop);
             Thread.sleep(3000);
             if(elevatorCar.getUpcomingStops().hasStop()){
                 elevatorCar.setState(new Stopped(elevatorCar));
             } else {
                 elevatorCar.setState(new Idle(elevatorCar));
             }
-            System.out.println("Reached at elevator stop: " + elevatorStop);
+            System.out.printf("[ElevatorCar - %d]Reached at elevator stop: %s%n", elevatorCar.getId(), elevatorStop);
             elevatorCar.setLastStop(elevatorStop);
 
             // opens the door and block until it closes automatically.

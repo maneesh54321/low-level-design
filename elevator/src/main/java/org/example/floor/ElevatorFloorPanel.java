@@ -17,13 +17,21 @@ public class ElevatorFloorPanel {
     }
 
     public void pressUpButton(){
-        upButton.press();
+        upButton.press(true);
         System.out.println("Up button pressed at station: " + station);
         this.station.requestUp();
     }
 
+    public void activateUpButton(){
+        upButton.activate();
+    }
+
     public void pressDownButton(){
-        downButton.press();
+        downButton.press(true);
         this.station.requestDown();
+    }
+
+    public void activateDownButton(){
+        downButton.activate();
     }
 }
