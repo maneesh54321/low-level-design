@@ -1,7 +1,7 @@
 package org.example.floor;
 
 import org.example.elevator.Direction;
-import org.example.elevator.ElevatorSystem;
+import org.example.elevator.system.ElevatorSystem;
 
 import java.util.List;
 
@@ -23,14 +23,14 @@ public class ElevatorStation {
         // Activate all up buttons
 //        floorPanels.forEach(ElevatorFloorPanel::pressUpButton);
 
-        this.elevatorSystem.assignElevator(floor, Direction.UP);
+        this.elevatorSystem.callElevator(floor, Direction.UP);
     }
 
     public void requestDown(){
         // Activate all down buttons
         floorPanels.forEach(ElevatorFloorPanel::pressDownButton);
 
-        this.elevatorSystem.assignElevator(floor, Direction.DOWN);
+        this.elevatorSystem.callElevator(floor, Direction.DOWN);
     }
 
     public List<ElevatorFloorPanel> getFloorPanels() {

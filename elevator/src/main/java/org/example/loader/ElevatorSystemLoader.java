@@ -7,9 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 import org.example.elevator.Door;
 import org.example.elevator.Elevator;
-import org.example.elevator.ElevatorSystem;
+import org.example.elevator.system.BasicElevatorAssignmentStrategy;
+import org.example.elevator.system.ElevatorSystem;
 import org.example.elevator.car.ElevatorCar;
-import org.example.floor.ElevatorFloorPanel;
+import org.example.floor.AssignStatusDisplay;
 import org.example.floor.ElevatorStation;
 import org.example.floor.ElevatorStop;
 import org.example.floor.Floor;
@@ -22,7 +23,7 @@ public class ElevatorSystemLoader {
 
 	public void load(BufferedReader bufferedReader) throws IOException {
 		List<Elevator> elevators = new ArrayList<>();
-		elevatorSystem = new ElevatorSystem(elevators);
+		elevatorSystem = new ElevatorSystem(elevators, new BasicElevatorAssignmentStrategy());
 //		elevatorStations = new ArrayList<>();
 		String line;
 		while ((line = bufferedReader.readLine()) != null) {
@@ -32,7 +33,7 @@ public class ElevatorSystemLoader {
 			Arrays.stream(line.split(" "))
 					.map(num -> new Floor(Integer.parseInt(num)))
 					.forEach(floor -> {
-						var elevatorStop = new ElevatorStop(floor, null);
+						var elevatorStop = new ElevatorStop(floor, new AssignStatusDisplay());
 						stops.add(elevatorStop);
 
 //						List<ElevatorFloorPanel> floorPanels = new ArrayList<>();

@@ -9,7 +9,7 @@ import java.util.List;
 public record Elevator(List<ElevatorStop> stops, ElevatorCar elevatorCar) {
 
     public void requestCar(Floor floor) {
-        stops.stream().filter(stop -> stop.getFloor().equals(floor)).findFirst().ifPresent(
+        stops.stream().filter(stop -> stop.floor().equals(floor)).findFirst().ifPresent(
 		        elevatorCar::driveTo);
     }
 }
