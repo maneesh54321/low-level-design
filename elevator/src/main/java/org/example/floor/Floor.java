@@ -2,7 +2,7 @@ package org.example.floor;
 
 import java.util.Objects;
 
-public class Floor {
+public class Floor implements Comparable<Floor>{
     private int floorNo;
 
     public Floor(int floorNo) {
@@ -35,5 +35,10 @@ public class Floor {
         return "Floor{" +
             "floorNo=" + floorNo +
             '}';
+    }
+
+    @Override
+    public int compareTo(Floor o) {
+        return Integer.compare(this.floorNo, o.floorNo);
     }
 }

@@ -33,7 +33,7 @@ public class ElevatorSystem {
 	public void callElevator(Floor floor, Direction direction) {
 		System.out.println("Calling an elevator!!!");
 		assignElevator(floor, direction).ifPresentOrElse(elevator -> {
-			elevator.requestCar(floor);
+			elevator.requestCar(floor, direction);
 			elevator.stops().stream()
 					.filter(stop -> stop.floor().equals(floor))
 					.findFirst()

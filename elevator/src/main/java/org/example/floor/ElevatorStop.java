@@ -2,7 +2,7 @@ package org.example.floor;
 
 import java.util.Objects;
 
-public final class ElevatorStop {
+public class ElevatorStop implements Comparable<ElevatorStop> {
     private final Floor floor;
     private final AssignStatusDisplay assignStatusDisplay;
     private boolean isActive;
@@ -11,13 +11,6 @@ public final class ElevatorStop {
         this.floor = floor;
         this.assignStatusDisplay = assignStatusDisplay;
         this.isActive = isActive;
-    }
-
-    @Override
-    public String toString() {
-        return "ElevatorStop{" +
-                "floor=" + floor +
-                '}';
     }
 
     public Floor floor() {
@@ -32,9 +25,16 @@ public final class ElevatorStop {
         return isActive;
     }
 
-	public void activate(){
-		isActive = true;
-	}
+    public void activate() {
+        isActive = true;
+    }
+
+    @Override
+    public String toString() {
+        return "ElevatorStop{" +
+                "floor=" + floor +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -47,5 +47,10 @@ public final class ElevatorStop {
     @Override
     public int hashCode() {
         return Objects.hash(floor);
+    }
+
+    @Override
+    public int compareTo(ElevatorStop o) {
+        return this.floor.compareTo(o.floor());
     }
 }

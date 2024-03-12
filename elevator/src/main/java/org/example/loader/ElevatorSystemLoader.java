@@ -19,52 +19,51 @@ import java.util.stream.IntStream;
 
 public class ElevatorSystemLoader {
 
-    private ElevatorSystem elevatorSystem;
+  private ElevatorSystem elevatorSystem;
 
-    private List<ElevatorStation> elevatorStations;
+  private List<ElevatorStation> elevatorStations;
 
-    private List<Elevator> elevators;
+  private List<Elevator> elevators;
 
-    public void load(BufferedReader bufferedReader) throws IOException {
-        elevators = new ArrayList<>();
-        int totalFloors = Integer.parseInt(bufferedReader.readLine());
-        elevatorSystem = new ElevatorSystem(10, elevators, new BasicElevatorAssignmentStrategy());
-//		elevatorStations = new ArrayList<>();
-        String line;
-        int elevatorNum = 1;
-        while ((line = bufferedReader.readLine()) != null) {
-            ArrayList<ElevatorStop> stops = new ArrayList<>();
-            var elevator = new Elevator(stops, new ElevatorCar(elevatorNum, new Door()));
-            IntStream.range(0, totalFloors + 1)
-                    .forEach(floorNumber -> elevator.stops().add(new ElevatorStop(new Floor(floorNumber), new AssignStatusDisplay(), false)));
-            elevators.add(elevator);
-            Arrays.stream(line.split(" "))
-                    .map(num -> new Floor(Integer.parseInt(num)))
-                    .forEach(floor -> {
-                        stops.stream()
-                                .filter(stop -> stop.floor().equals(floor))
-                                .findFirst()
-                                .ifPresent(ElevatorStop::activate);
+  public void load(BufferedReader bufferedReader) throws IOException {
+    elevators = new ArrayList<>();
+    int totalFloors = Integer.parseInt(bufferedReader.readLine());
+    elevatorSystem = new ElevatorSystem(10, elevators, new BasicElevatorAssignmentStrategy());
+    String line;
+    int elevatorNum = 1;
+    while ((line = bufferedReader.readLine()) != null) {
+      var stops = new ArrayList<ElevatorStop>();
+      IntStream.range(0, totalFloors + 1)
+          .forEach(
+              floorNumber ->
+                  stops.add(
+                      new ElevatorStop(new Floor(floorNumber), new AssignStatusDisplay(), false)));
+      Arrays.stream(line.split(" "))
+          .map(num -> new Floor(Integer.parseInt(num)))
+          .forEach(
+              floor -> {
+                stops.stream()
+                    .filter(stop -> stop.floor().equals(floor))
+                    .findFirst()
+                    .ifPresent(ElevatorStop::activate);
+              });
+      var elevator =
+          new Elevator(stops, new ElevatorCar(elevatorNum, new Door(), stops, stops.getFirst()));
 
-//						List<ElevatorFloorPanel> floorPanels = new ArrayList<>();
-//						ElevatorStation elevatorStation = new ElevatorStation(floor, elevatorSystem,
-//								floorPanels);
-//						floorPanels.add(new ElevatorFloorPanel(elevatorStation));
-//						elevatorStations.add(elevatorStation);
-                    });
-            elevatorNum++;
-        }
+      elevators.add(elevator);
+      elevatorNum++;
     }
+  }
 
-    public ElevatorSystem getElevatorSystem() {
-        return elevatorSystem;
-    }
+  public ElevatorSystem getElevatorSystem() {
+    return elevatorSystem;
+  }
 
-    public List<Elevator> getElevators(){
-        return this.elevators;
-    }
+  public List<Elevator> getElevators() {
+    return this.elevators;
+  }
 
-    public List<ElevatorStation> getElevatorStations() {
-        return elevatorStations;
-    }
+  public List<ElevatorStation> getElevatorStations() {
+    return elevatorStations;
+  }
 }

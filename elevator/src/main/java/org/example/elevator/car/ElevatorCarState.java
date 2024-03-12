@@ -1,14 +1,14 @@
 package org.example.elevator.car;
 
-import org.example.floor.ElevatorStop;
+import org.example.elevator.request.Request;
 
 interface ElevatorCarState {
-
-    void driveTo(ElevatorStop elevatorStop);
 
     void openDoor();
 
     void closeDoor();
 
-    void move(ElevatorStop elevatorStop);
+    void move();
+
+    void addRequest(Request request);
 }

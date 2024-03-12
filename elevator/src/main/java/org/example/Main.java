@@ -15,7 +15,6 @@ public class Main {
 		var elevatorSystemLoader = new ElevatorSystemLoader();
 		elevatorSystemLoader.load(Files.newBufferedReader(
 				Path.of(ClassLoader.getSystemResource("elevator-system.txt").toURI())));
-//		var elevatorStations = elevatorSystemLoader.getElevatorStations();
 		elevatorSystemLoader.getElevatorSystem().callElevator(new Floor(2), Direction.UP);
 		elevatorSystemLoader.getElevatorSystem().callElevator(new Floor(4), Direction.UP);
 		elevatorSystemLoader.getElevatorSystem().callElevator(new Floor(8), Direction.DOWN);

@@ -1,19 +1,14 @@
 package org.example.elevator.car;
 
-import org.example.floor.ElevatorStop;
+import org.example.elevator.Direction;
+import org.example.elevator.request.Request;
 
-class Idle implements ElevatorCarState {
+public class Idle implements ElevatorCarState {
 
     private final ElevatorCar elevatorCar;
 
     public Idle(ElevatorCar elevatorCar) {
         this.elevatorCar = elevatorCar;
-    }
-
-    @Override
-    public void driveTo(ElevatorStop elevatorStop) {
-        elevatorCar.addUpcomingStop(elevatorStop);
-        elevatorCar.move(elevatorCar.getUpcomingStops().getNextStop());
     }
 
     @Override
@@ -27,9 +22,22 @@ class Idle implements ElevatorCarState {
     }
 
     @Override
-    public void move(ElevatorStop elevatorStop) {
-        System.out.println("In idle state, starting elevator now, next stop is: " + elevatorStop);
-        elevatorCar.setState(new Moving(elevatorCar));
-        elevatorCar.launch(elevatorStop);
+    public void move() {
+        int compare = elevatorCar.getLastStop().floor().compareTo(elevatorCar.getRequestStore().getFirst().floor());
+        if(compare == 0) {
+            return;
+        }
+        if(compare > 0) {
+            elevatorCar.setState(new Moving(elevatorCar, Direction.DOWN));
+        } else {
+            elevatorCar.setState(new Moving(elevatorCar, Direction.UP));
+        }
+        new Thread(elevatorCar::move).start();
+    }
+
+    @Override
+    public void addRequest(Request request) {
+        elevatorCar.getRequestStore().addRequest(request);
+        elevatorCar.move();
     }
 }

@@ -1,34 +1,66 @@
 package org.example.elevator.car;
 
-import org.example.floor.ElevatorStop;
+import org.example.elevator.Direction;
+import org.example.elevator.request.Request;
 
 class Stopped implements ElevatorCarState {
 
-    private final ElevatorCar elevatorCar;
+  private final ElevatorCar elevatorCar;
 
-    public Stopped(ElevatorCar elevatorCar) {
-        this.elevatorCar = elevatorCar;
+  private final Direction direction;
+
+  public Stopped(ElevatorCar elevatorCar, Direction direction) {
+    this.elevatorCar = elevatorCar;
+    this.direction = direction;
+  }
+
+  @Override
+  public void openDoor() {
+    elevatorCar.getDoor().open();
+  }
+
+  @Override
+  public void closeDoor() {
+    elevatorCar.getDoor().close();
+  }
+
+  @Override
+  public void move() {
+    System.out.println("Opening door...");
+    elevatorCar.openDoor();
+    if (elevatorCar.getRequestStore().isEmpty()) {
+      elevatorCar.setState(new Idle(elevatorCar));
+      return;
     }
 
-    @Override
-    public void driveTo(ElevatorStop elevatorStop) {
-        elevatorCar.addUpcomingStop(elevatorStop);
-    }
+    ElevatorCarState newState =
+        switch (direction) {
+          case Direction.UP -> {
+            if (elevatorCar.getRequestStore().getAllRequests().stream()
+                .noneMatch(
+                    request -> request.floor().compareTo(elevatorCar.getLastStop().floor()) > 0)) {
+              yield new Moving(elevatorCar, Direction.DOWN);
+            } else {
+              yield new Moving(elevatorCar, direction);
+            }
+          }
+          case Direction.DOWN -> {
+            if (elevatorCar.getRequestStore().getAllRequests().stream()
+                .noneMatch(
+                    request -> request.floor().compareTo(elevatorCar.getLastStop().floor()) < 0)) {
+              yield new Moving(elevatorCar, Direction.UP);
+            } else {
+              yield new Moving(elevatorCar, direction);
+            }
+          }
+        };
 
-    @Override
-    public void openDoor() {
-        elevatorCar.getDoor().open();
-    }
+    elevatorCar.setState(newState);
+    elevatorCar.move();
+  }
 
-    @Override
-    public void closeDoor() {
-        elevatorCar.getDoor().close();
-    }
-
-    @Override
-    public void move(ElevatorStop elevatorStop) {
-        System.out.println("Next stop is: " + elevatorStop);
-        elevatorCar.setState(new Moving(elevatorCar));
-        elevatorCar.move(elevatorStop);
-    }
+  @Override
+  public void addRequest(Request request) {
+    elevatorCar.getRequestStore().addRequest(request);
+  }
 }
