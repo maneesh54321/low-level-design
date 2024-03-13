@@ -18,11 +18,12 @@ public class Main {
 		elevatorSystemLoader.getElevatorSystem().callElevator(new Floor(2), Direction.UP);
 		elevatorSystemLoader.getElevatorSystem().callElevator(new Floor(4), Direction.UP);
 		elevatorSystemLoader.getElevatorSystem().callElevator(new Floor(8), Direction.DOWN);
-		elevatorSystemLoader.getElevatorSystem().callElevator(new Floor(10), Direction.DOWN);
+		elevatorSystemLoader.getElevatorSystem().callElevator(new Floor(9), Direction.DOWN);
+		Thread.sleep(15000);
 		elevatorSystemLoader.getElevators().stream().skip(1).findFirst().ifPresent(elevator -> elevator.requestStop(new Floor(8)));
 		elevatorSystemLoader.getElevators().stream().skip(1).findFirst().ifPresent(elevator -> elevator.requestStop(new Floor(3)));
 		elevatorSystemLoader.getElevators().stream().skip(1).findFirst().ifPresent(elevator -> elevator.requestStop(new Floor(5)));
-		elevatorSystemLoader.getElevators().stream().skip(1).findFirst().ifPresent(elevator -> elevator.requestStop(new Floor(10)));
+		elevatorSystemLoader.getElevators().stream().skip(1).findFirst().ifPresent(elevator -> elevator.requestStop(new Floor(1)));
 		Thread.sleep(15000);
 	}
 }

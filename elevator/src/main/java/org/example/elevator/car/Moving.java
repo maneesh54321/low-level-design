@@ -33,18 +33,30 @@ class Moving implements ElevatorCarState {
   @Override
   public void move() {
     List<ElevatorStop> stopList = getIntermediateStops();
+    if(stopList.isEmpty()){
+      if(elevatorCar.getRequestStore().isEmpty()){
+        elevatorCar.setState(new Idle(elevatorCar));
+      } else {
+        ElevatorCarState newState = switch (direction){
+          case UP -> new Moving(elevatorCar, Direction.DOWN);
+          case DOWN -> new Moving(elevatorCar, Direction.UP);
+        };
+        elevatorCar.setState(newState);
+      }
+    }
     for (ElevatorStop nextStop : stopList) {
-      System.out.printf("[Elevator-%d] Moving to %s%n", elevatorCar.getId(), nextStop);
-      ThreadUtils.simulateTimeGap(2000);
-      System.out.printf("[Elevator-%d] Reached %s%n", elevatorCar.getId(), nextStop);
-      elevatorCar.setLastStop(nextStop);
-
       Predicate<Request> shouldStopAtStop =
           request ->
               (request.type() == RequestType.STOP && request.floor().equals(nextStop.floor()))
                   || (request.type() == RequestType.CALL
-                      && request.floor().equals(nextStop.floor())
-                      && request.direction() == direction);
+                  && request.floor().equals(nextStop.floor())
+                  && request.direction() == direction);
+      if(elevatorCar.getRequestStore().getAllRequests().stream().noneMatch(shouldStopAtStop)){
+        System.out.printf("[Elevator-%d] Moving to %s%n", elevatorCar.getId(), nextStop);
+        ThreadUtils.simulateTimeGap(2000);
+        System.out.printf("[Elevator-%d] Reached %s%n", elevatorCar.getId(), nextStop);
+      }
+      elevatorCar.setLastStop(nextStop);
 
       if (elevatorCar.getRequestStore().removeRequest(shouldStopAtStop)) {
         elevatorCar.setState(new Stopped(elevatorCar, direction));
@@ -70,7 +82,7 @@ class Moving implements ElevatorCarState {
             .map(
                 request ->
                     elevatorCar.getAllStops().stream()
-                        .dropWhile(stop -> stop.compareTo(elevatorCar.getLastStop()) <= 0)
+                        .dropWhile(stop -> stop.compareTo(elevatorCar.getLastStop()) < 0)
                         .takeWhile(stop -> stop.floor().compareTo(request.floor()) <= 0)
                         .collect(Collectors.toList()))
             .orElse(Collections.emptyList());
@@ -79,14 +91,14 @@ class Moving implements ElevatorCarState {
         Optional<Request> bottomRequest =
             elevatorCar.getRequestStore().getAllRequests().stream()
                 .filter(
-                    request -> request.floor().compareTo(elevatorCar.getLastStop().floor()) <= 0)
+                    request -> request.floor().compareTo(elevatorCar.getLastStop().floor()) < 0)
                 .max(Comparator.comparing(Request::floor));
         yield bottomRequest
             .map(
                 request ->
                     elevatorCar.getAllStops().stream()
-                        .dropWhile(stop -> !stop.floor().equals(request.floor()))
-                        .takeWhile(stop -> !stop.floor().equals(elevatorCar.getLastStop().floor()))
+                        .dropWhile(stop -> stop.floor().compareTo(request.floor()) < 0)
+                        .takeWhile(stop -> stop.floor().compareTo(elevatorCar.getLastStop().floor()) <= 0)
                         .sorted(Comparator.reverseOrder())
                         .collect(Collectors.toList()))
             .orElse(Collections.emptyList());

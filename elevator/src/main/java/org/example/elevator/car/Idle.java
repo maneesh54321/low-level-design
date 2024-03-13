@@ -23,6 +23,7 @@ public class Idle implements ElevatorCarState {
 
     @Override
     public void move() {
+        if(elevatorCar.getRequestStore().isEmpty()) return;
         int compare = elevatorCar.getLastStop().floor().compareTo(elevatorCar.getRequestStore().getFirst().floor());
         if(compare == 0) {
             return;
@@ -32,7 +33,11 @@ public class Idle implements ElevatorCarState {
         } else {
             elevatorCar.setState(new Moving(elevatorCar, Direction.UP));
         }
-        new Thread(elevatorCar::move).start();
+        new Thread(() -> {
+            while (!elevatorCar.getRequestStore().isEmpty()){
+                elevatorCar.move();
+            }
+        }).start();
     }
 
     @Override

@@ -68,7 +68,6 @@ public class ElevatorCar {
     }
 
     public void openDoor() {
-        System.out.println("Opening elevator door!!!");
         state.openDoor();
     }
 

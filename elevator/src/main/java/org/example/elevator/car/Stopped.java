@@ -26,7 +26,7 @@ class Stopped implements ElevatorCarState {
 
   @Override
   public void move() {
-    System.out.println("Opening door...");
+    System.out.printf("[Elevator-%d] Opening door at stop %s...%n", elevatorCar.getId(), elevatorCar.getLastStop());
     elevatorCar.openDoor();
     if (elevatorCar.getRequestStore().isEmpty()) {
       elevatorCar.setState(new Idle(elevatorCar));

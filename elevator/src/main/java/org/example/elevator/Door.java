@@ -9,7 +9,7 @@ public class Door {
             this.open = true;
             try {
                 Thread.sleep(2000);
-                System.out.println("Automatically closing door!!");
+//                System.out.println("Automatically closing door!!");
                 this.close();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
