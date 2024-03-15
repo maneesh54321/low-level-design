@@ -1,10 +1,17 @@
 ## Use case - 1
+
 ### Request an elevator car
-### Actor 
+
+### Actor
+
 Passenger
-### Preconditions: 
-Passenger is on one of the floors of the building and wants to go up. 
+
+### Preconditions:
+
+Passenger is on one of the floors of the building and wants to go up.
+
 ### Steps:
+
 1. Passenger presses down button on one of the elevator's floor panel.
 2. Down button starts glowing on all the elevators.
 3. Elevator system assigns an elevator.
@@ -17,18 +24,29 @@ Passenger is on one of the floors of the building and wants to go up.
 10. Down button stops glowing on all the elevators.
 
 #### Nouns:
-Passenger, Down Button, Elevator's Floor Panel, Elevator System, Elevator, Elevator's Down Indicator, Elevator car, Requested Floor, Elevator car Door, Floor Door.
+
+Passenger, Down Button, Elevator's Floor Panel, Elevator System, Elevator, Elevator's Down
+Indicator, Elevator car, Requested Floor, Elevator car Door, Floor Door.
 
 #### Verbs:
-presses down button, starts glowing, assigns elevator, starts glowing, send elevator car, stops at floor, door opens, Passenger enters, closes automatically, stops glowing.
+
+presses down button, starts glowing, assigns elevator, starts glowing, send elevator car, stops at
+floor, door opens, Passenger enters, closes automatically, stops glowing.
 
 ## Use case - 2
+
 ### Request a stop from an elevator car
+
 ### Actor
+
 Passenger
+
 ### Preconditions
+
 Passenger is in one the assigned elevator
+
 ### Steps
+
 1. Passenger presses a floor button on elevator navigation panel.
 2. Elevator validates if it can send elevator car to the floor.
 3. Floor button starts glowing.
@@ -39,7 +57,9 @@ Passenger is in one the assigned elevator
 8. Elevator car door closes automatically.
 
 #### Nouns
+
 Passenger, Floor Button, Elevator, Elevator Navigation Panel, Elevator Car, Elevator car door.
 
 #### Verbs
+
 presses, validates, starts glowing, stops, opens, closes
