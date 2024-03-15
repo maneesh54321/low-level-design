@@ -1,0 +1,57 @@
+package org.ms.elevator.core.state;
+
+import org.ms.elevator.core.Direction;
+import org.ms.elevator.core.Elevator;
+import org.ms.elevator.core.RequestType;
+import org.ms.elevator.utils.ThreadUtils;
+
+public class StoppedDown implements ElevatorState {
+
+	private final Elevator elevator;
+
+	private final Integer floor;
+
+	public StoppedDown(Elevator elevator, Integer floor) {
+		this.elevator = elevator;
+		this.floor = floor;
+	}
+
+	@Override
+	public Direction getDirection() {
+		return Direction.DOWN;
+	}
+
+	@Override
+	public void move() {
+		boolean removed = elevator.getRequests().removeIf(
+				request -> request.floor() == floor && (request.type() == RequestType.STOP || (
+						request.type() == RequestType.CALL && request.direction() == getDirection())));
+		if (removed) {
+			openDoor();
+			ThreadUtils.simulateDelay(5000);
+			closeDoor();
+			if (elevator.getRequests().isEmpty()) {
+				System.out.println("No more requests left, going to idle state...");
+				elevator.setState(new Idle(elevator));
+			} else {
+				boolean noFloorsLeftFurther = elevator.getRequests().stream()
+						.noneMatch(request -> request.floor() < elevator.getCurrentFloor());
+				if (noFloorsLeftFurther) {
+					elevator.setState(new MovingUp(elevator));
+				} else {
+					elevator.setState(new MovingDown(elevator));
+				}
+			}
+		}
+	}
+
+	@Override
+	public void openDoor() {
+		System.out.printf("[StoppedDown] Opening door @ floor = %d...\n", this.floor);
+	}
+
+	@Override
+	public void closeDoor() {
+		System.out.printf("[StoppedDown] Closing door @ floor = %d...\n", this.floor);
+	}
+}
