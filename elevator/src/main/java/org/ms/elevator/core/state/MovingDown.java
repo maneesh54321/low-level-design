@@ -9,7 +9,7 @@ import org.ms.elevator.core.Elevator;
 import org.ms.elevator.core.Request;
 import org.ms.elevator.utils.ThreadUtils;
 
-public class MovingDown implements ElevatorState {
+public final class MovingDown implements ElevatorState {
 
 	private Elevator elevator;
 
