@@ -5,7 +5,7 @@ import org.ms.elevator.core.Direction;
 import org.ms.elevator.core.Elevator;
 import org.ms.elevator.utils.ThreadUtils;
 
-public class Idle implements ElevatorState {
+public final class Idle implements ElevatorState {
 
 	private final Elevator elevator;
 

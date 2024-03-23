@@ -5,7 +5,7 @@ import org.ms.elevator.core.Elevator;
 import org.ms.elevator.core.RequestType;
 import org.ms.elevator.utils.ThreadUtils;
 
-public class StoppedUp implements ElevatorState {
+public final class StoppedUp implements ElevatorState {
 
 	private final Elevator elevator;
 
