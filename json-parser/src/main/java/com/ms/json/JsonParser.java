@@ -29,6 +29,12 @@ public class JsonParser {
 		converters.put(Double.class, Function.identity());
 		converters.put(Boolean.class, Function.identity());
 		converters.put(String.class, Function.identity());
+		converters.put(Map.class, obj -> {
+			JSONObject jsonObject = (JSONObject) obj;
+//			Map<>
+//			jsonObject.keys().forEachRemaining(key -> );
+			return null;
+		});
 
 		setters = new HashMap<>();
 		setters.put(int.class, classObj -> (field, value) -> {
@@ -116,7 +122,8 @@ public class JsonParser {
 
 	private boolean isJavaType(Field field) {
 		Class<?> type = field.getType();
-		return type == short.class || type == byte.class || type == int.class || type == long.class || type == double.class
-				|| type == boolean.class || type == float.class || type == Double.class || type == char.class || type == String.class;
+		return type == short.class || type == byte.class || type == int.class || type == long.class
+				|| type == double.class	|| type == boolean.class || type == float.class || type == Double.class
+				|| type == char.class || type == String.class || type == Map.class;
 	}
 }

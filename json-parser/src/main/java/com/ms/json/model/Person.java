@@ -1,9 +1,13 @@
 package com.ms.json.model;
 
+import java.util.Map;
+
 public class Person {
 	private int id;
 	private String name;
 	private Address address;
+	private boolean isEnabled;
+	private Map<String, String> ids;
 
 	public int getId() {
 		return id;
@@ -29,12 +33,21 @@ public class Person {
 		this.address = address;
 	}
 
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		isEnabled = enabled;
+	}
+
 	@Override
 	public String toString() {
 		return "Person{" +
 				"id=" + id +
 				", name='" + name + '\'' +
 				", address=" + address +
+				", isEnabled=" + isEnabled +
 				'}';
 	}
 }

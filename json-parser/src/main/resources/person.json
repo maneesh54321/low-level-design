@@ -1,9 +1,14 @@
 {
   "id": 1,
   "name": "Ram",
+  "isEnabled": true,
   "address": {
     "houseNo": 8,
     "zipCode": "273152",
     "city": "Bengaluru"
+  },
+  "ids": {
+    "aadhaarNumber": "12345678",
+    "voterId": "HSTRE1234"
   }
 }
