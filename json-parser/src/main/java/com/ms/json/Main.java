@@ -13,6 +13,8 @@ public class Main {
 		try(FileInputStream fileInputStream = new FileInputStream(Main.class.getResource("/person.json").getFile())){
 			String json = new String(fileInputStream.readAllBytes());
 			Person person = parser.parseJson(json, Person.class);
+
+			System.out.println(person);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

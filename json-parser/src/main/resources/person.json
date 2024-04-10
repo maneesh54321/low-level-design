@@ -2,6 +2,8 @@
   "id": 1,
   "name": "Ram",
   "address": {
-
+    "houseNo": 8,
+    "zipCode": "273152",
+    "city": "Bengaluru"
   }
 }
