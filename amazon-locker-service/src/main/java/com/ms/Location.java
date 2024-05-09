@@ -1,5 +1,5 @@
 package com.ms;
 
-public class Location {
+public record Location(double latitude, double longitude) {
 
 }

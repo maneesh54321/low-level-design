@@ -4,9 +4,13 @@ import java.util.List;
 
 public class LockerRepository {
 
-	private List<LockerHub> lockerHubs;
+	private final List<LockerHub> lockerHubs;
 
-	public List<LockerHub> getAllLockerHubs(Address address) {
+	public LockerRepository(List<LockerHub> lockerHubs) {
+		this.lockerHubs = lockerHubs;
+	}
+
+	public List<LockerHub> getAllLockerHubs() {
 		return lockerHubs;
 	}
 }

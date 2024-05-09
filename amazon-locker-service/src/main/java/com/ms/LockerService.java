@@ -1,5 +1,6 @@
 package com.ms;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,40 +12,52 @@ public class LockerService {
 
 	private final LockerRepository lockerRepository;
 
-	private final Map<String, List<Locker>> reservedLockers;
+	private final Map<Locker, Reservation> reservedLockers;
 
 	private final Lock lock = new ReentrantLock();
 
-	public LockerService(LockerRepository lockerRepository) {
+	private final LockerHubFinder lockerHubFinder;
+
+	private final LockerFinder lockerFinder;
+
+	public LockerService(LockerRepository lockerRepository, LockerHubFinder lockerHubFinder, LockerFinder lockerFinder) {
 		this.lockerRepository = lockerRepository;
-		reservedLockers = new HashMap<>();
+		this.lockerHubFinder = lockerHubFinder;
+		this.lockerFinder = lockerFinder;
+		this.reservedLockers = new HashMap<>();
 	}
 
 	public List<LockerHub> getNearbyLockersHubs(Address address) {
-		return List.of();
+		return lockerHubFinder.findNearbyLockerHubs(address, lockerRepository.getAllLockerHubs());
 	}
 
 	public boolean reserveLocker(LockerHub lockerHub, Order order) {
 		lock.lock();
 		try {
-			Optional<List<Locker>> lockers = findLocker(lockerHub, order.getItems());
-			if(lockers.isEmpty()) return false;
-			reservedLockers.put(order.getId(), lockers.get());
+			Optional<List<Locker>> lockers = lockerFinder.findLocker(lockerHub, reservedLockers, order.getItems());
+			if(lockers.isEmpty() || lockers.get().isEmpty()) return false;
+			var reservation = new Reservation(order, LocalDateTime.now());
+			lockers.ifPresent(lockerList -> lockerList.forEach(locker -> reservedLockers.put(locker, reservation)));
 			return true;
 		} finally {
 			lock.unlock();
 		}
 	}
 
-	private Optional<List<Locker>> findLocker(LockerHub lockerHub, List<Item> items) {
-		return Optional.empty();
-	}
-
 	public void assignLocker(Order order) {
-
+		reservedLockers.entrySet().iterator().forEachRemaining((entry) -> {
+			if(entry.getValue().order().equals(order)) {
+				entry.getKey().assign();
+				reservedLockers.remove(entry.getKey());
+			}
+		});
 	}
 
 	public void releaseLocker(Order order) {
-
+		reservedLockers.entrySet().iterator().forEachRemaining((entry) -> {
+			if(entry.getValue().order().equals(order)) {
+				reservedLockers.remove(entry.getKey());
+			}
+		});
 	}
 }
