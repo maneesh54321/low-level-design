@@ -1,16 +1,29 @@
 package com.ms;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Locker {
-	private int id;
-	private LockerSize size;
-	private LockerHub lockerHub;
+	private final int id;
+	private final LockerSize size;
 	private LockerState state;
-	private List<Item> items;
+	private final List<Item> items;
+	private final LockerHub lockerHub;
+
+	public Locker(int id, LockerSize size, LockerState state, LockerHub lockerHub) {
+		this.id = id;
+		this.size = size;
+		this.state = state;
+		this.items = new ArrayList<>();
+		this.lockerHub = lockerHub;
+	}
 
 	public List<Item> getItems() {
 		return items;
+	}
+
+	public void addItem(Item item) {
+		items.add(item);
 	}
 
 	public void assign() {
@@ -23,5 +36,10 @@ public class Locker {
 
 	public boolean isFree() {
 		return state == LockerState.FREE;
+	}
+
+	public String lock() {
+		System.out.println("Locker %d locked!!");
+		return Util.generateRandomCode();
 	}
 }
