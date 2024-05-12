@@ -43,7 +43,7 @@ public class MoneyManager {
 	}
 
 	private List<Denomination> calculateChange(int amount, List<Denomination> denominationList) {
-		// TODO implement this
+		// TODO implement this.
 		return List.of();
 	}
 
