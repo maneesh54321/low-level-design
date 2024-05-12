@@ -1,6 +1,5 @@
 package org.vendingmachine.v2.product;
 
-public class Product {
-	private int price;
-	private String name;
+public record Product(int price, String name) {
+
 }

@@ -26,14 +26,14 @@ public class Balance {
 
 	public void add(List<Denomination> denominations){
 		for (Denomination denomination: denominations) {
-			denominations.add(denomination);
+			denominationList.add(denomination);
 			amount += denomination.getValue();
 		}
 	}
 
 	public void take(List<Denomination> denominations) {
 		for (Denomination denomination: denominations) {
-			denominations.remove(denomination);
+			denominationList.remove(denomination);
 			amount -= denomination.getValue();
 		}
 	}

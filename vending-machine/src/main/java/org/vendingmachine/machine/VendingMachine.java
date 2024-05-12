@@ -17,7 +17,7 @@ public class VendingMachine {
 
 	}
 
-	public Product dispense(){
-
-	}
+//	public Product dispense(){
+//
+//	}
 }

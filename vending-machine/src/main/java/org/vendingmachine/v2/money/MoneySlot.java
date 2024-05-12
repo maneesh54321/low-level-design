@@ -5,6 +5,7 @@ import java.util.Optional;
 public class MoneySlot {
 
 	public Optional<Denomination> insertMoney(Denomination denomination){
+		System.out.println("Received: " + denomination);
 		if(!isValid(denomination)) {
 			expelMoney(denomination);
 			return Optional.empty();

@@ -22,4 +22,9 @@ public class ProductInventory {
 		return this.racks.stream().filter(rack -> rack.getId() == rackId).findFirst()
 				.map(Rack::hasProduct).orElse(false);
 	}
+
+	public int getPrice(int rackId) {
+		return this.racks.stream().filter(rack -> rack.getId() == rackId).findFirst()
+				.map(Rack::getPrice).orElseThrow();
+	}
 }

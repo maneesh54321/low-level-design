@@ -13,6 +13,14 @@ public class Rack {
 		products = new ArrayList<>();
 	}
 
+	public Rack(int id, Product product, int productCount) {
+		this.id = id;
+		products = new ArrayList<>();
+		for (int i = 0; i < productCount; i++) {
+			products.add(product);
+		}
+	}
+
 	public int getId() {
 		return id;
 	}

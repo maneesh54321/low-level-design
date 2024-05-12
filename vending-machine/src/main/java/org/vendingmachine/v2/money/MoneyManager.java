@@ -37,6 +37,9 @@ public class MoneyManager {
 		var amountLeftAfterEarning = currentBalance - amount;
 		var change = calculateChange(amountLeftAfterEarning, this.totalBalance.getDenominationList());
 		this.totalBalance.take(change);
+
+		this.currentBalance.resetToZero();
+		this.currentBalance.add(change);
 	}
 
 	private List<Denomination> calculateChange(int amount, List<Denomination> denominationList) {
