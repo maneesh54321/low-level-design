@@ -31,7 +31,7 @@
     * Dealer has total value more than or equal to 17.
     * Dealer stands.
     * System checks the cards of each player in game.
-      * If player has total value more than Dealer, System declares player win.
+      * If player has total value more than Dealer, System declares player win. 
       * If player has total value less than Dealer, System declares player lose.
       * If player has total value equal to Dealer, System declares tie.
     * System ends the Game.
