@@ -1,8 +1,12 @@
 package com.ms.money;
 
-public abstract class Money {
+public class Money {
 
-	private int value;
+	private final int value;
+
+	public Money(int value) {
+		this.value = value;
+	}
 
 	public int getValue() {
 		return value;

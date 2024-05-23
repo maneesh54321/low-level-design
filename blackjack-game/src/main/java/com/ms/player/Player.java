@@ -8,11 +8,14 @@ import java.util.List;
 
 public abstract class Player {
 
+	private final String name;
+
 	private final List<Card> cards;
 
 	private final Game game;
 
-	public Player(Game game) {
+	public Player(String name, Game game) {
+		this.name = name;
 		this.game = game;
 		this.cards = new ArrayList<>();
 	}
@@ -31,5 +34,13 @@ public abstract class Player {
 
 	public void addCard(Card card) {
 		cards.add(card);
+	}
+
+	@Override
+	public String toString() {
+		return "Player{" +
+				"name='" + name + '\'' +
+				", cards=" + cards +
+				'}';
 	}
 }

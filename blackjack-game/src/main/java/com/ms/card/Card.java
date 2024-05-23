@@ -1,3 +1,3 @@
 package com.ms.card;
 
-public record Card(Face face) { }
+public record Card(Face face, Suit suit) { }
