@@ -13,6 +13,6 @@ public class HitActionHandler implements ActionHandler {
 
 	@Override
 	public void handle(Player player) {
-
+		player.addCard(game.getShoe().takeCard());
 	}
 }

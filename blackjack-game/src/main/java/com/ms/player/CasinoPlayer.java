@@ -5,8 +5,8 @@ import com.ms.Game;
 import com.ms.money.Reward;
 
 public class CasinoPlayer extends Player implements Gambler {
-	public CasinoPlayer(Game game) {
-		super(game);
+	public CasinoPlayer(String name) {
+		super(name);
 	}
 
 	@Override

@@ -1,46 +1,42 @@
 package com.ms.player;
 
-import com.ms.Game;
 import com.ms.card.Card;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.ms.card.Hand;
+import com.ms.turn.Turn;
 
 public abstract class Player {
 
 	private final String name;
 
-	private final List<Card> cards;
+	private Hand hand;
 
-	private final Game game;
-
-	public Player(String name, Game game) {
+	public Player(String name) {
 		this.name = name;
-		this.game = game;
-		this.cards = new ArrayList<>();
 	}
 
-	public List<Card> getCards() {
-		return cards;
+	public void takeTurn(Turn turn) {
+		System.out.println("Turn starting for player:\n" + this);
+		turn.execute();
 	}
 
-	public void takeTurn() {
-
+	public Hand getHand() {
+		return hand;
 	}
 
-	public void addCards(List<Card> cards) {
-		this.cards.addAll(cards);
+	public void setHand(Hand hand){
+		this.hand = hand;
 	}
 
 	public void addCard(Card card) {
-		cards.add(card);
+		this.hand.addCard(card);
 	}
 
 	@Override
 	public String toString() {
 		return "Player{" +
 				"name='" + name + '\'' +
-				", cards=" + cards +
+				", hand=" + hand +
 				'}';
 	}
+
 }

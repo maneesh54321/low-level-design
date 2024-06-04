@@ -8,21 +8,23 @@ import com.ms.card.Shoe;
 import com.ms.money.Bet;
 import com.ms.money.Money;
 import com.ms.money.Reward;
+import com.ms.player.CasinoPlayer;
 import com.ms.player.Dealer;
 import com.ms.player.Gambler;
 import com.ms.player.Player;
-
+import com.ms.turn.DealerTurn;
+import com.ms.turn.PlayerTurn;
+import com.ms.turn.Turn;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Game {
 
 	private final Map<Gambler, Bet> bets;
 
-	private Set<Player> players;
+	private final Set<CasinoPlayer> players;
 
 	private final Dealer dealer;
 
@@ -34,29 +36,27 @@ public class Game {
 		this.bets = new HashMap<>();
 		this.shoe = new Shoe();
 		this.actionHandlers = new HashMap<>();
-		dealer = new Dealer(this);
+		dealer = new Dealer("Dealer", this);
+		players = new HashSet<>();
 
 		actionHandlers.put(Action.HIT, new HitActionHandler(this));
-		actionHandlers.put(Action.STAND, new StandActionHandler(this));
+		actionHandlers.put(Action.STAND, new StandActionHandler());
 	}
 
 	public void start() {
 		System.out.println("Starting game..");
-		Set<Gambler> gamblers = bets.keySet();
-		players = gamblers.stream().map(gambler -> (Player) gambler).collect(Collectors.toSet());
 
-		System.out.println("Dealing cards...");
-		dealCards();
+		dealer.dealHands();
 
 		// Start player turns
-		players.forEach(Player::takeTurn);
+		players.forEach(player -> {
+			Turn turn = new PlayerTurn(player, this);
+			player.takeTurn(turn);
+		});
+
 		// Start Dealer turn
-
-	}
-
-	private void dealCards() {
-		players.stream().peek(player -> player.addCards(List.of(shoe.takeCard(), shoe.takeCard())))
-				.forEach(System.out::println);
+		var dealerTurn = new DealerTurn(dealer, this);
+		dealer.takeTurn(dealerTurn);
 	}
 
 	public void end() {
@@ -64,22 +64,41 @@ public class Game {
 	}
 
 	public void declareWinner(Player player, Money money) {
+		System.out.println(player + " has won!!");
 		var gambler = (Gambler) player;
 		gambler.win(new Reward(bets.get(gambler), money.getValue()));
-		bets.remove(gambler);
+		players.remove(player);
 	}
 
 	public void declareLoser(Player player) {
+		System.out.println("Player lost the game!!");
 		var gambler = (Gambler) player;
 		gambler.lose(bets.get(gambler));
-		bets.remove(gambler);
+		players.remove(player);
+	}
+
+	public Set<CasinoPlayer> getPlayers(){
+		return players;
+	}
+
+	public Shoe getShoe() {
+		return shoe;
 	}
 
 	public void placeBet(Gambler gambler, Bet bet) {
 		bets.put(gambler, bet);
+		players.add((CasinoPlayer) gambler);
+	}
+
+	public Bet getBet(Gambler gambler){
+		return bets.get(gambler);
 	}
 
 	public void play(Player player, Action action) {
 		actionHandlers.get(action).handle(player);
+	}
+
+	public void declareDraw(Player player) {
+		players.remove(player);
 	}
 }
