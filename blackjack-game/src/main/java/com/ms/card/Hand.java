@@ -15,11 +15,12 @@ public class Hand {
 	}
 
 	public int getTotalValue(){
-		var hasAce = cards.stream().anyMatch(card -> card.face() == Face.ACE);
+		var aceCount = (int)cards.stream().filter(card -> card.face() == Face.ACE).count();
 		var nonAceValue = cards.stream()
 				.filter(card -> card.face() != Face.ACE)
 				.mapToInt(card -> card.face().getValue()).sum();
-		if (hasAce) {
+		nonAceValue = nonAceValue + (aceCount > 0 ? aceCount - 1 : 0);
+		if (aceCount > 0) {
 			return nonAceValue > 10 ? nonAceValue + 1 : nonAceValue + 11;
 		} else {
 			return nonAceValue;
@@ -27,11 +28,12 @@ public class Hand {
 	}
 
 	public boolean isBusted() {
-		var hasAce = cards.stream().anyMatch(card -> card.face() == Face.ACE);
+		var aceCount = (int)cards.stream().filter(card -> card.face() == Face.ACE).count();
 		var nonAceValue = cards.stream()
 				.filter(card -> card.face() != Face.ACE)
 				.mapToInt(card -> card.face().getValue()).sum();
-		if (hasAce){
+		nonAceValue = nonAceValue + (aceCount > 0 ? aceCount - 1 : 0);
+		if (aceCount > 0){
 			return nonAceValue + 1 > 21;
 		} else {
 			return nonAceValue > 21;
@@ -39,11 +41,12 @@ public class Hand {
 	}
 
 	public boolean isBlackjack() {
-		var hasAce = cards.stream().anyMatch(card -> card.face() == Face.ACE);
+		var aceCount = (int)cards.stream().filter(card -> card.face() == Face.ACE).count();
 		var nonAceValue = cards.stream()
 				.filter(card -> card.face() != Face.ACE)
 				.mapToInt(card -> card.face().getValue()).sum();
-		if (hasAce){
+		nonAceValue = nonAceValue + (aceCount > 0 ? aceCount - 1 : 0);
+		if (aceCount > 0){
 			return nonAceValue + 11 == 21 || nonAceValue + 1 == 21;
 		} else {
 			return nonAceValue == 21;
@@ -51,22 +54,24 @@ public class Hand {
 	}
 
 	public boolean isSoftSeventeen() {
-		var hasAce = cards.stream().anyMatch(card -> card.face() == Face.ACE);
+		var aceCount = (int)cards.stream().filter(card -> card.face() == Face.ACE).count();
 		var nonAceValue = cards.stream()
 				.filter(card -> card.face() != Face.ACE)
 				.mapToInt(card -> card.face().getValue()).sum();
-		if(hasAce) {
+		nonAceValue = nonAceValue + (aceCount > 0 ? aceCount - 1 : 0);
+		if (aceCount > 0){
 			return nonAceValue >= 6;
 		}
 		return false;
 	}
 
 	public boolean isHardSeventeen() {
-		var hasAce = cards.stream().anyMatch(card -> card.face() == Face.ACE);
+		var aceCount = (int)cards.stream().filter(card -> card.face() == Face.ACE).count();
 		var nonAceValue = cards.stream()
 				.filter(card -> card.face() != Face.ACE)
 				.mapToInt(card -> card.face().getValue()).sum();
-		if(hasAce) {
+		nonAceValue = nonAceValue + (aceCount > 0 ? aceCount - 1 : 0);
+		if (aceCount > 0){
 			return nonAceValue + 1 >= 17;
 		} else {
 			return nonAceValue >= 17;
