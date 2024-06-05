@@ -1,6 +1,7 @@
 package com.ms.action;
 
 import com.ms.Game;
+import com.ms.card.Card;
 import com.ms.player.Player;
 
 public class HitActionHandler implements ActionHandler {
@@ -13,6 +14,8 @@ public class HitActionHandler implements ActionHandler {
 
 	@Override
 	public void handle(Player player) {
-		player.addCard(game.getShoe().takeCard());
+		Card card = game.getShoe().takeCard().show();
+		System.out.println("Card drawn: \n" + card);
+		player.addCard(card);
 	}
 }

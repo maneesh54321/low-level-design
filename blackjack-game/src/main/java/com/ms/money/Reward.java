@@ -12,4 +12,11 @@ public class Reward extends Money {
 	public Bet getBet() {
 		return bet;
 	}
+
+	@Override
+	public String toString() {
+		return "Reward{" +
+				"bet=" + bet + ", " + super.toString() +
+				'}';
+	}
 }

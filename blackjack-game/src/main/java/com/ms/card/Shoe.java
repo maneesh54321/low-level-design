@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Shoe {
 
-	private final List<Card> deck;
+	private List<Card> deck;
 
 	public Shoe() {
 		deck = new ArrayList<>();
@@ -31,6 +31,14 @@ public class Shoe {
 	}
 
 	public Shoe(List<Card> deck) {
+		this.deck = deck;
+	}
+
+	public List<Card> getDeck() {
+		return deck;
+	}
+
+	public void setDeck(List<Card> deck) {
 		this.deck = deck;
 	}
 

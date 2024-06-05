@@ -14,16 +14,12 @@ public final class Card {
 	}
 
 	public Card show() {
-		this.hidden = true;
+		this.hidden = false;
 		return this;
 	}
 
 	public Face face() {
 		return face;
-	}
-
-	public Suit suit() {
-		return suit;
 	}
 
 	@Override
@@ -47,8 +43,8 @@ public final class Card {
 
 	@Override
 	public String toString() {
-		return "Card[" +
-				(hidden ? "" : "face=" + face + ", " +
+		return "Card" +
+				(hidden ? "" : "[face=" + face + ", " +
 				"suit=" + suit + "]");
 	}
 

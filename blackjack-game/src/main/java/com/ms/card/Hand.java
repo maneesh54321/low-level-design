@@ -76,4 +76,15 @@ public class Hand {
 			return nonAceValue >= 17;
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Hand{" +
+				"cards=" + cards +
+				'}';
+	}
+
+	public void showAllCards() {
+		cards.forEach(Card::show);
+	}
 }

@@ -10,6 +10,7 @@ public class DealerTurn extends Turn {
 
 	public DealerTurn(Player player, Game game) {
 		super(player, game);
+		player.getHand().showAllCards();
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class DealerTurn extends Turn {
 		} else if (getPlayer().getHand().isBusted()) {
 			handleBust();
 		} else {
-			getGame().getPlayers().forEach(casinoPlayer -> {
+			getGame().getTable().players().forEach(casinoPlayer -> {
 				// else, all players having
 				if (casinoPlayer.getHand().getTotalValue() > getPlayer().getHand().getTotalValue()) {
 					// 1. more value than dealer win
@@ -57,7 +58,7 @@ public class DealerTurn extends Turn {
 
 	private void handleBust() {
 		// all remaining player(s) win.
-		getGame().getPlayers().forEach(casinoPlayer -> {
+		getGame().getTable().players().forEach(casinoPlayer -> {
 			Bet bet = getGame().getBet(casinoPlayer);
 			getGame().declareWinner(casinoPlayer, new Reward(bet, bet.getValue() + bet.getValue()/2));
 		});
@@ -65,7 +66,7 @@ public class DealerTurn extends Turn {
 
 	private void handleBlackjack() {
 		// all remaining player(s) lose
-		getGame().getPlayers().forEach(casinoPlayer -> getGame().declareLoser(casinoPlayer));
+		getGame().getTable().players().forEach(casinoPlayer -> getGame().declareLoser(casinoPlayer));
 	}
 
 	private boolean isDealerTurnOver() {
