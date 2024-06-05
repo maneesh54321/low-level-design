@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Game {
 
@@ -29,11 +28,7 @@ public class Game {
 
 	private final Map<Gambler, Bet> bets;
 
-	private final Set<CasinoPlayer> players;
-
-	private final Dealer dealer;
-
-	private Table table;
+	private final Table table;
 
 	private final Map<Action, ActionHandler> actionHandlers;
 
@@ -43,11 +38,13 @@ public class Game {
 		this.bets = new HashMap<>();
 		this.shoe = new Shoe();
 		var cardShuffler = new CardShuffler();
-		shoe.setDeck(cardShuffler.shuffle(shoe.getDeck()));
-		this.actionHandlers = new HashMap<>();
-		dealer = new Dealer("Dealer", this);
-		players = new HashSet<>();
+		this.shoe.setDeck(cardShuffler.shuffle(shoe.getDeck()));
 
+		var dealer = new Dealer("Dealer", this);
+		var players = new HashSet<CasinoPlayer>();
+		this.table = new Table(players, dealer);
+
+		this.actionHandlers = new HashMap<>();
 		actionHandlers.put(Action.HIT, new HitActionHandler(this));
 		actionHandlers.put(Action.STAND, new StandActionHandler());
 	}
@@ -55,11 +52,10 @@ public class Game {
 	public void start() {
 		System.out.println("Starting game..");
 
-		table = new Table(players, dealer);
+		Dealer dealer = table.dealer();
+		dealer.dealHands();
 
-		table.dealer().dealHands();
-
-		printAllPlayersCards();
+		table.printAllPlayersCards();
 
 		// Start player turns
 		table.players().forEach(casinoPlayer -> {
@@ -69,15 +65,8 @@ public class Game {
 
 		// Start Dealer turn
 		var dealerTurn = new DealerTurn(dealer, this);
-		table.dealer().takeTurn(dealerTurn);
+		dealer.takeTurn(dealerTurn);
 		end();
-	}
-
-	private void printAllPlayersCards() {
-		System.out.println("\n##### Printing whole table!!");
-		System.out.println(dealer);
-		players.forEach(System.out::println);
-		System.out.println("#####\n");
 	}
 
 	private void end() {
@@ -100,7 +89,7 @@ public class Game {
 	}
 
 	public void declareDraw(Player player) {
-		players.remove((CasinoPlayer) player);
+		table.removePlayer((CasinoPlayer) player);
 	}
 
 	public Table getTable(){
@@ -113,7 +102,7 @@ public class Game {
 
 	public void placeBet(Gambler gambler, Bet bet) {
 		bets.put(gambler, bet);
-		players.add((CasinoPlayer) gambler);
+		table.addPlayer((CasinoPlayer) gambler);
 	}
 
 	public Bet getBet(Gambler gambler){
