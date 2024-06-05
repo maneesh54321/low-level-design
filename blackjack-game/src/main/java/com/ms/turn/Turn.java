@@ -3,15 +3,15 @@ package com.ms.turn;
 import com.ms.Game;
 import com.ms.player.Player;
 
-public abstract class Turn {
+public abstract class Turn<T extends Player> {
 
 	private boolean shouldContinue;
 
-	private final Player player;
+	private final T player;
 
 	private final Game game;
 
-	public Turn(Player player, Game game) {
+	public Turn(T player, Game game) {
 		this.player = player;
 		this.game = game;
 		shouldContinue = true;
@@ -25,7 +25,7 @@ public abstract class Turn {
 
 	abstract public void play();
 
-	public Player getPlayer() {
+	public T getPlayer() {
 		return player;
 	}
 

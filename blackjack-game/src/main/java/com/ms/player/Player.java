@@ -15,7 +15,7 @@ public abstract class Player {
 		this.name = name;
 	}
 
-	public void takeTurn(Turn turn) {
+	public void takeTurn(Turn<?> turn) {
 		System.out.println("Turn starting for player:\n" + this);
 		turn.execute();
 	}

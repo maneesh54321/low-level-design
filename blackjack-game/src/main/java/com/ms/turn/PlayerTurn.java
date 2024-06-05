@@ -4,13 +4,12 @@ import com.ms.Game;
 import com.ms.action.Action;
 import com.ms.money.Bet;
 import com.ms.money.Money;
-import com.ms.player.Gambler;
-import com.ms.player.Player;
+import com.ms.player.CasinoPlayer;
 import java.util.Scanner;
 
-public class PlayerTurn extends Turn {
+public class PlayerTurn extends Turn<CasinoPlayer> {
 
-	public PlayerTurn(Player player, Game game) {
+	public PlayerTurn(CasinoPlayer player, Game game) {
 		super(player, game);
 	}
 
@@ -45,12 +44,12 @@ public class PlayerTurn extends Turn {
 	}
 
 	private void handleBust() {
-		getGame().declareLoser(getPlayer());
+		getGame().declareLoser((CasinoPlayer) getPlayer());
 		over();
 	}
 
 	private void handleBlackJackWinner() {
-		Bet bet = getGame().getBet((Gambler) getPlayer());
+		Bet bet = getGame().getBet(getPlayer());
 		getGame().declareWinner(getPlayer(), new Money(bet.getValue() + bet.getValue() / 2));
 		over();
 	}

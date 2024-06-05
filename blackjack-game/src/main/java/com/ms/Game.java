@@ -16,7 +16,6 @@ import com.ms.player.Player;
 import com.ms.player.Table;
 import com.ms.turn.DealerTurn;
 import com.ms.turn.PlayerTurn;
-import com.ms.turn.Turn;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -59,7 +58,7 @@ public class Game {
 
 		// Start player turns
 		table.players().forEach(casinoPlayer -> {
-			Turn turn = new PlayerTurn(casinoPlayer, this);
+			var turn = new PlayerTurn(casinoPlayer, this);
 			casinoPlayer.takeTurn(turn);
 		});
 
@@ -74,22 +73,23 @@ public class Game {
 		SCANNER.close();
 	}
 
-	public void declareWinner(Player player, Money money) {
+	public void declareWinner(CasinoPlayer player, Money money) {
 		System.out.printf("Player %s has won!!\n", player);
 		var gambler = (Gambler) player;
 		gambler.win(new Reward(bets.get(gambler), money.getValue()));
-		table.removePlayer((CasinoPlayer) player);
+		table.removePlayer(player);
 	}
 
-	public void declareLoser(Player player) {
+	public void declareLoser(CasinoPlayer player) {
 		System.out.printf("Player %s lost the game!!\n", player);
 		var gambler = (Gambler) player;
 		gambler.lose(bets.get(gambler));
-		table.removePlayer((CasinoPlayer) player);
+		table.removePlayer(player);
 	}
 
-	public void declareDraw(Player player) {
-		table.removePlayer((CasinoPlayer) player);
+	public void declareDraw(CasinoPlayer player) {
+		player.draw(bets.get(player));
+		table.removePlayer(player);
 	}
 
 	public Table getTable(){

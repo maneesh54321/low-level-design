@@ -14,10 +14,6 @@ public class Hand {
 		this.cards.add(card);
 	}
 
-	public void addCards(List<Card> cards) {
-		this.cards.addAll(cards);
-	}
-
 	public int getTotalValue(){
 		var hasAce = cards.stream().anyMatch(card -> card.face() == Face.ACE);
 		var nonAceValue = cards.stream()
