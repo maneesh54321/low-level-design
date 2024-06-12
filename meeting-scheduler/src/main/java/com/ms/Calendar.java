@@ -1,15 +1,22 @@
 package com.ms;
 
 import com.ms.meeting.Meeting;
+import com.ms.notification.MeetingEventNotification;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Calendar {
 
-    private List<Meeting> meetings;
+    private final List<Meeting> meetings;
 
-    private List<Meeting> pendingInvites;
+    private final List<MeetingEventNotification> pendingInvites;
+
+    public Calendar() {
+        meetings = new ArrayList<>();
+        pendingInvites = new ArrayList<>();
+    }
 
     public void getMeetings(LocalDateTime dateTime) {
 
@@ -23,7 +30,11 @@ public class Calendar {
         this.meetings.remove(meeting);
     }
 
-    public Meeting[] getPendingInvites(){
+    public void addPendingMeeting(MeetingEventNotification meetingEventNotification){
+        this.pendingInvites.add(meetingEventNotification);
+    }
 
+    public List<MeetingEventNotification> getPendingInvites(){
+        return pendingInvites;
     }
 }

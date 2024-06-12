@@ -1,4 +1,8 @@
 package com.ms;
 
-public class Interval {
+import java.time.Duration;
+import java.time.LocalDateTime;
+
+public record Interval(LocalDateTime dateTime, Duration duration) {
+
 }

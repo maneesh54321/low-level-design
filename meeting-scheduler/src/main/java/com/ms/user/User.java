@@ -1,10 +1,17 @@
 package com.ms.user;
 
+import com.ms.Calendar;
 import com.ms.meeting.Meeting;
 
-public class User implements MeetingOrganizer, MeetingParticipant{
+public class User extends MeetingUser {
+
     private String id;
+
     private String name;
+
+    public User(Calendar calendar) {
+        super(calendar);
+    }
 
     @Override
     public void createMeeting() {

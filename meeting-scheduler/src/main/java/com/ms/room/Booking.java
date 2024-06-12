@@ -1,4 +1,6 @@
 package com.ms.room;
 
-public class Booking {
+import com.ms.Interval;
+
+public record Booking(Interval interval) {
 }
