@@ -13,4 +13,11 @@ public abstract class MeetingEventNotification {
     public Meeting getMeeting(){
         return meeting;
     }
+
+    @Override
+    public String toString() {
+        return "MeetingEventNotification{" +
+                "meeting=" + meeting +
+                '}';
+    }
 }

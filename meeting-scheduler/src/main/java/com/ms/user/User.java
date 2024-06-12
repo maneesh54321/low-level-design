@@ -1,40 +1,25 @@
 package com.ms.user;
 
-import com.ms.Calendar;
-import com.ms.meeting.Meeting;
-
-public class User extends MeetingUser {
+public class User {
 
     private String id;
 
     private String name;
 
-    public User(Calendar calendar) {
-        super(calendar);
+    public User(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public String getId() {
+        return id;
     }
 
     @Override
-    public void createMeeting() {
-
-    }
-
-    @Override
-    public void cancelMeeting() {
-
-    }
-
-    @Override
-    public void receive(Meeting meeting) {
-
-    }
-
-    @Override
-    public void accept(Meeting meeting) {
-
-    }
-
-    @Override
-    public void reject(Meeting meeting) {
-
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

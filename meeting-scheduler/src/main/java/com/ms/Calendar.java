@@ -6,6 +6,7 @@ import com.ms.notification.MeetingEventNotification;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Calendar {
 
@@ -36,5 +37,17 @@ public class Calendar {
 
     public List<MeetingEventNotification> getPendingInvites(){
         return pendingInvites;
+    }
+
+    @Override
+    public String toString() {
+        return "Calendar{" +
+                "meetings=" + meetings +
+                ", pendingInvites=" + pendingInvites +
+                '}';
+    }
+
+    public Optional<Meeting> getMeetingById(Integer id) {
+        return meetings.stream().filter(meeting -> meeting.getId() == id).findFirst();
     }
 }

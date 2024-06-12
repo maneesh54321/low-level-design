@@ -1,9 +1,8 @@
 package com.ms.user;
 
-import com.ms.meeting.Meeting;
+import com.ms.notification.MeetingEventNotification;
 
 public interface MeetingParticipant {
-    void receive(Meeting meeting);
-    void accept(Meeting meeting);
-    void reject(Meeting meeting);
+    void receive(MeetingEventNotification meetingEventNotification);
+    void respond(MeetingEventNotification meetingEventNotification);
 }

@@ -9,6 +9,8 @@ import java.util.List;
 
 public class Meeting {
 
+    private final int id;
+
     private final Interval interval;
 
     private final String agenda;
@@ -19,11 +21,16 @@ public class Meeting {
 
     private final MeetingOrganizer organizer;
 
-    public Meeting(Interval interval, String agenda, MeetingRoom meetingRoom, List<MeetingParticipant> meetingParticipants, MeetingOrganizer organizer) {
+    public Meeting(int id, Interval interval, String agenda, MeetingRoom meetingRoom, List<MeetingParticipant> meetingParticipants, MeetingOrganizer organizer) {
+        this.id = id;
         this.interval = interval;
         this.agenda = agenda;
         this.meetingRoom = meetingRoom;
         this.meetingParticipants = meetingParticipants;
         this.organizer = organizer;
+    }
+
+    public int getId() {
+        return id;
     }
 }
