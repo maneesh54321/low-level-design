@@ -7,6 +7,10 @@ public class CancelledMeetingEventNotificationHandler implements MeetingEventNot
 
     @Override
     public void handleNotification(MeetingEventNotification eventNotification, MeetingUser meetingUser) {
-
+        System.out.println("User: " + meetingUser);
+        System.out.println("Received notification: " + eventNotification);
+        System.out.println("Removing meeting from calendar..");
+        meetingUser.getCalendar().removeMeeting(eventNotification.getMeeting());
+        System.out.println("Meeting removed. Updated Calendar:\n" + meetingUser.getCalendar());
     }
 }

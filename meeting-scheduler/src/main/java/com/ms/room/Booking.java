@@ -1,6 +1,6 @@
 package com.ms.room;
 
-import com.ms.Interval;
+import com.ms.meeting.Meeting;
 
-public record Booking(Interval interval) {
+public record Booking(Meeting meeting) {
 }

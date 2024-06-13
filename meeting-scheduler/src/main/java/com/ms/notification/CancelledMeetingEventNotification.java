@@ -4,7 +4,7 @@ import com.ms.meeting.Meeting;
 
 public class CancelledMeetingEventNotification extends MeetingEventNotification {
 
-    public CancelledMeetingEventNotification(Meeting meeting) {
-        super(meeting);
+    public CancelledMeetingEventNotification(String id, Meeting meeting) {
+        super(id, meeting);
     }
 }

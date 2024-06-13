@@ -1,6 +1,7 @@
 package com.ms.room;
 
 import com.ms.Interval;
+import com.ms.meeting.Meeting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,25 @@ public class MeetingRoom {
         this.bookings = new ArrayList<>();
     }
 
-    public void book(Interval interval) {
-
+    public void book(Meeting meeting) {
+        bookings.add(new Booking(meeting));
     }
 
-    public boolean isAvailable(Interval interval, int numOfParticipants){
-        return false;
+    public boolean isAvailable(Interval interval, int numOfParticipants) {
+        if(numOfParticipants > maxParticipants) {
+            return false;
+        }
+        boolean booked = bookings.stream()
+                .anyMatch(booking -> booking.meeting().getInterval().overlaps(interval));
+        return !booked;
+    }
+
+    @Override
+    public String toString() {
+        return "MeetingRoom{" +
+                "floor=" + floor +
+                ", roomNo='" + roomNo + '\'' +
+                ", maxParticipants=" + maxParticipants +
+                '}';
     }
 }

@@ -4,9 +4,12 @@ import com.ms.meeting.Meeting;
 
 public abstract class MeetingEventNotification {
 
+    private final String id;
+
     private final Meeting meeting;
 
-    public MeetingEventNotification(Meeting meeting) {
+    public MeetingEventNotification(String id, Meeting meeting) {
+        this.id = id;
         this.meeting = meeting;
     }
 
@@ -14,10 +17,15 @@ public abstract class MeetingEventNotification {
         return meeting;
     }
 
+    public String getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "MeetingEventNotification{" +
-                "meeting=" + meeting +
+                "id='" + id + '\'' +
+                ", meeting=" + meeting +
                 '}';
     }
 }

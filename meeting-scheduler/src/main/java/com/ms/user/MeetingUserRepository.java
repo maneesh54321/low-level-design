@@ -1,21 +1,21 @@
 package com.ms.user;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public class MeetingUserRepository {
 
-    private final MeetingUser[] users;
+    private final List<MeetingUser> users;
 
-    public MeetingUserRepository(MeetingUser[] users) {
+    public MeetingUserRepository(List<MeetingUser> users) {
         this.users = users;
     }
 
-    public MeetingUser[] getAllUsers(){
+    public List<MeetingUser> getAllUsers(){
         return this.users;
     }
 
     public Optional<MeetingUser> getUserById(String participantId) {
-        return Arrays.stream(users).filter(user -> user.getId().equals(participantId)).findFirst();
+        return users.stream().filter(user -> user.getId().equals(participantId)).findFirst();
     }
 }

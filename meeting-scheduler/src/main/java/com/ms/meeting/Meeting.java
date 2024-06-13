@@ -33,4 +33,32 @@ public class Meeting {
     public int getId() {
         return id;
     }
+
+    public Interval getInterval() {
+        return interval;
+    }
+
+    public List<MeetingParticipant> getMeetingParticipants() {
+        return meetingParticipants;
+    }
+
+    public void removeParticipant(MeetingParticipant participant) {
+        meetingParticipants.removeIf(meetingParticipant -> meetingParticipant.getId().equals(participant.getId()));
+    }
+
+    public MeetingOrganizer getOrganizer() {
+        return organizer;
+    }
+
+    @Override
+    public String toString() {
+        return "Meeting{" +
+                "id=" + id +
+                ", interval=" + interval +
+                ", agenda='" + agenda + '\'' +
+                ", meetingRoom=" + meetingRoom +
+                ", meetingParticipants=" + meetingParticipants +
+                ", organizer=" + organizer +
+                '}';
+    }
 }
