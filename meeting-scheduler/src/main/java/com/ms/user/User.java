@@ -2,9 +2,9 @@ package com.ms.user;
 
 public class User {
 
-    private String id;
+    private final String id;
 
-    private String name;
+    private final String name;
 
     public User(String id, String name) {
         this.id = id;
@@ -13,6 +13,10 @@ public class User {
 
     public String getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

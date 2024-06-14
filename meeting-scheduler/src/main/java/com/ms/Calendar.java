@@ -3,7 +3,6 @@ package com.ms;
 import com.ms.meeting.Meeting;
 import com.ms.notification.MeetingEventNotification;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,10 +16,6 @@ public class Calendar {
     public Calendar() {
         meetings = new ArrayList<>();
         pendingInvites = new ArrayList<>();
-    }
-
-    public void getMeetings(LocalDateTime dateTime) {
-
     }
 
     public void addMeeting(Meeting meeting) {

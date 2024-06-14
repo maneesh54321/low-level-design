@@ -11,10 +11,6 @@ public class MeetingUserRepository {
         this.users = users;
     }
 
-    public List<MeetingUser> getAllUsers(){
-        return this.users;
-    }
-
     public Optional<MeetingUser> getUserById(String participantId) {
         return users.stream().filter(user -> user.getId().equals(participantId)).findFirst();
     }
