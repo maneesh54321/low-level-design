@@ -1,0 +1,63 @@
+PVR Brookefield
+Brookfield mall, 5th cross road</N>Brookfield</N>watch tower</N>560045</N>Bengaluru</N>Karnataka
+Screen</N>1
+Executive</N>A 10</N>B 10</N>C 10</N>D 10</N>E 10</N>F 10</N>G 10
+Club</N>H 10</N>I 10</N>J 10
+Screen</N>2
+Lounger</N>A 8
+Single Sofa</N>B 10</N>C 10</N>D 10</N>E 10</N>F 10</N>G 10
+Double Sofa</N>H 10</N>I 10</N>J 10
+Normal</N>K 10</N>L 10</N>M 10
+
+Soul Spirit INOX
+Soul Spirit mall</N>ORR Road, Bellandur</N>Flyover</N>560032</N>Bengaluru</N>Karnataka
+Screen</N>1
+Executive</N>A 10</N>B 10</N>C 10</N>D 10</N>E 10</N>F 10</N>G 10
+Club</N>H 10</N>I 10</N>J 10
+Screen</N>2
+Lounger</N>A 8
+Single Sofa</N>B 10</N>C 10</N>D 10</N>E 10</N>F 10</N>G 10
+Double Sofa</N>H 10</N>I 10</N>J 10
+Normal</N>K 10</N>L 10</N>M 10
+Screen</N>3
+Lounger</N>A 8
+Single Sofa</N>B 10</N>C 10</N>D 10</N>E 10</N>F 10</N>G 10
+Double Sofa</N>H 10</N>I 10</N>J 10
+Normal</N>K 10</N>L 10</N>M 10
+Screen</N>4
+Lounger</N>A 8
+Single Sofa</N>B 10</N>C 10</N>D 10</N>E 10</N>F 10</N>G 10
+Double Sofa</N>H 10</N>I 10</N>J 10
+Normal</N>K 10</N>L 10</N>M 10
+
+PVR Shantiniketan
+Prestige Shantiniketan</N>Whitefield</N>Metro</N>560024</N>Bengaluru</N>Karnataka
+Screen</N>1
+Executive</N>A 10</N>B 10</N>C 10</N>D 10</N>E 10</N>F 10</N>G 10
+Club</N>H 10</N>I 10</N>J 10
+Screen</N>2
+Lounger Sofa</N>A 8
+Single Sofa</N>B 10</N>C 10</N>D 10</N>E 10</N>F 10</N>G 10
+Double Sofa</N>H 10</N>I 10</N>J 10
+Normal</N>K 10</N>L 10</N>M 10
+Screen</N>3
+Lounger</N>A 8
+Single Sofa</N>B 10</N>C 10</N>D 10</N>E 10</N>F 10</N>G 10
+Double Sofa</N>H 10</N>I 10</N>J 10
+Normal</N>K 10</N>L 10</N>M 10
+Screen</N>4
+Lounger Sofa</N>A 8
+Single Sofa</N>B 10</N>C 10</N>D 10</N>E 10</N>F 10</N>G 10
+Double Sofa</N>H 10</N>I 10</N>J 10
+Normal</N>K 10</N>L 10</N>M 10
+
+PVR City Mall
+City Mall</N>Post office road</N>Post office</N>273014</N>Gorakhpur</N>Uttar Pradesh
+Screen</N>1
+Executive</N>A 10</N>B 10</N>C 10</N>D 10</N>E 10</N>F 10</N>G 10
+Club</N>H 10</N>I 10</N>J 10
+Screen</N>2
+Lounger</N>A 8
+Single Sofa</N>B 10</N>C 10</N>D 10</N>E 10</N>F 10</N>G 10
+Double Sofa</N>H 10</N>I 10</N>J 10
+Normal</N>K 10</N>L 10</N>M 10

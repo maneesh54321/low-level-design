@@ -1,7 +1,21 @@
 package com.ms.service;
 
-public class CinemaHallManager {
-	public void addCinemaHall(){}
+import com.ms.cinemahall.CinemaHall;
+import com.ms.cinemahall.CinemaHallRepository;
 
-	public void removeCinemaHall(){}
+public class CinemaHallManager {
+
+	private final CinemaHallRepository cinemaHallRepository;
+
+	public CinemaHallManager(CinemaHallRepository cinemaHallRepository) {
+		this.cinemaHallRepository = cinemaHallRepository;
+	}
+
+	public void addCinemaHall(CinemaHall cinemaHall){
+		this.cinemaHallRepository.addCinemaHall(cinemaHall);
+	}
+
+	public void removeCinemaHall(CinemaHall cinemaHall){
+		this.cinemaHallRepository.removeCinemaHall(cinemaHall);
+	}
 }
