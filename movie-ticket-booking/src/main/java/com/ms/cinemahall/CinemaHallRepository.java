@@ -22,6 +22,10 @@ public class CinemaHallRepository {
 		this.cinemaHalls.remove(cinemaHall);
 	}
 
+	public List<CinemaHall> getCinemaHallsByCity(String city) {
+		return this.cinemaHalls.stream().filter(cinemaHall -> cinemaHall.address().city().equalsIgnoreCase(city)).toList();
+	}
+
 	@Override
 	public String toString() {
 		return "CinemaHallRepository{" +

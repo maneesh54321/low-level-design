@@ -1,4 +1,6 @@
 package com.ms.show;
 
-public class Show {
+import java.time.LocalDate;
+
+public record Show(String title, String genre, String language, LocalDate releaseDate, ShowType type) {
 }
