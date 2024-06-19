@@ -3,6 +3,8 @@ package com.ms.show;
 import com.ms.cinemahall.Screen;
 import com.ms.show.price.SeatPriceCatalog;
 
+import java.time.LocalDateTime;
+
 public class ShowSchedule {
     private final Show show;
     private final Screen screen;
@@ -38,5 +40,9 @@ public class ShowSchedule {
 
     public int getSeatPrice(int seatNum) {
         return seatPriceCatalog.getSeatPrice(seatNum);
+    }
+
+    public boolean overlaps(LocalDateTime time){
+        return true;
     }
 }

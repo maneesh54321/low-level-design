@@ -66,8 +66,8 @@ public class CinemaHallLoader {
 			var screenTokens = line.split(TOKEN_SEPARATOR);
 			var screenNo = screenTokens[1];
 			line = sc.nextLine();
-			int seatGroupId = 1;
 			var seatGroups = new ArrayList<SeatGroup>();
+			int seatGroupId = 1;
 			while (line != null && !line.isBlank() && !line.split(TOKEN_SEPARATOR)[0].equalsIgnoreCase("screen")){
 				var seatTokens = line.split(TOKEN_SEPARATOR);
 				var groupName = seatTokens[0];
@@ -77,7 +77,7 @@ public class CinemaHallLoader {
 					var rowChar = seatTokens[i].charAt(0);
 					IntStream.range(1, noOfSeatsInRow + 1).forEach(j -> seats.add(new Seat(rowChar, j, "Normal")));
 				}
-				var seatGroup = new SeatGroup(seatGroupId, groupName, seats);
+				var seatGroup = new SeatGroup(seatGroupId++, groupName, seats);
 				seatGroups.add(seatGroup);
 				if(sc.hasNext()) {
 					line = sc.nextLine();

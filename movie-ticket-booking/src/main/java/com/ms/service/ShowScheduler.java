@@ -7,8 +7,10 @@ import com.ms.show.Show;
 import com.ms.show.ShowSchedule;
 
 public class ShowScheduler {
-    public void scheduleShow(Show show, Screen screen, Interval interval, SeatPriceCatalog seatPriceConfig) {
-        screen.addShowSchedule(new ShowSchedule(show, screen, interval, seatPriceConfig));
+    public void scheduleShow(Show show, Screen screen, Interval interval, SeatPriceCatalog seatPriceCatalog) {
+        System.out.printf("Scheduling show %s on screen %s in interval %s...%n", show, screen.screenNo(), interval);
+        screen.addShowSchedule(new ShowSchedule(show, screen, interval, seatPriceCatalog));
+        System.out.printf("Show scheduled on screen %s.%n", screen.screenNo());
     }
 
     public void removeShowSchedule(ShowSchedule showSchedule) {
