@@ -1,19 +1,19 @@
 package com.ms.show;
 
 import com.ms.cinemahall.Screen;
-import com.ms.price.SeatPriceConfiguration;
+import com.ms.show.price.SeatPriceCatalog;
 
 public class ShowSchedule {
     private final Show show;
     private final Screen screen;
     private final Interval interval;
-    private SeatPriceConfiguration seatPriceConfiguration;
+    private SeatPriceCatalog seatPriceCatalog;
 
-    public ShowSchedule(Show show, Screen screen, Interval interval, SeatPriceConfiguration seatPriceConfiguration) {
+    public ShowSchedule(Show show, Screen screen, Interval interval, SeatPriceCatalog seatPriceCatalog) {
         this.show = show;
         this.screen = screen;
         this.interval = interval;
-        this.seatPriceConfiguration = seatPriceConfiguration;
+        this.seatPriceCatalog = seatPriceCatalog;
     }
 
     public Show getShow() {
@@ -28,11 +28,15 @@ public class ShowSchedule {
         return interval;
     }
 
-    public SeatPriceConfiguration getSeatPriceConfiguration() {
-        return seatPriceConfiguration;
+    public SeatPriceCatalog getSeatPriceCatalog() {
+        return seatPriceCatalog;
     }
 
-    public void setSeatPriceConfiguration(SeatPriceConfiguration seatPriceConfiguration) {
-        this.seatPriceConfiguration = seatPriceConfiguration;
+    public void setSeatPriceCatalog(SeatPriceCatalog seatPriceCatalog) {
+        this.seatPriceCatalog = seatPriceCatalog;
+    }
+
+    public int getSeatPrice(int seatNum) {
+        return seatPriceCatalog.getSeatPrice(seatNum);
     }
 }

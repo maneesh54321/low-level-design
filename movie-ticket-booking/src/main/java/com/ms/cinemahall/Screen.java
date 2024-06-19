@@ -5,10 +5,10 @@ import com.ms.show.ShowSchedule;
 import java.util.ArrayList;
 import java.util.List;
 
-public record Screen(String screenNo, List<ShowSchedule> showSchedules, SeatingConfiguration seatingConfiguration) {
+public record Screen(String screenNo, List<ShowSchedule> showSchedules, SeatingLayout seatingLayout) {
 
-    public Screen(String screenNo, SeatingConfiguration seatingConfiguration) {
-        this(screenNo, new ArrayList<>(), seatingConfiguration);
+    public Screen(String screenNo, SeatingLayout seatingLayout) {
+        this(screenNo, new ArrayList<>(), seatingLayout);
     }
 
     public void addShowSchedule(ShowSchedule showSchedule) {
