@@ -1,9 +1,17 @@
 package com.ms.cinemahall;
 
+import com.ms.show.Show;
+import com.ms.show.ShowSchedule;
 import java.util.List;
 import java.util.Objects;
 
 public record CinemaHall(String id, String name, Address address, List<Screen> screens) {
+
+    public boolean hasShow(Show inputShow) {
+        return screens.stream().flatMap(screen -> screen.showSchedules().stream())
+            .map(ShowSchedule::getShow)
+            .anyMatch(show -> show.equals(inputShow));
+    }
 
     @Override
     public boolean equals(Object o) {

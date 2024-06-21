@@ -43,6 +43,14 @@ public class ShowSchedule {
     }
 
     public boolean overlaps(LocalDateTime time){
-        return true;
+        return interval.overlapsWith(time);
+    }
+
+    @Override
+    public String toString() {
+        return "ShowSchedule{" +
+                "show=" + show +
+                ", interval=" + interval +
+                '}';
     }
 }
