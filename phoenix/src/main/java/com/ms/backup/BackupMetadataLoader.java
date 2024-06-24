@@ -1,6 +1,7 @@
 package com.ms.backup;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,8 +25,8 @@ public class BackupMetadataLoader {
 
     public BackupLocation loadTargetLocation() {
         Properties properties = new Properties();
-        try {
-            properties.load(BackupMetadataLoader.class.getResourceAsStream("/application.properties"));
+        try (InputStream propertiesFileStream = BackupMetadataLoader.class.getResourceAsStream("/application.properties")) {
+            properties.load(propertiesFileStream);
             String targetLocation = (String) properties.get("backup.target.location");
             return new BackupLocation(targetLocation);
         } catch (IOException e) {

@@ -2,6 +2,8 @@ package com.ms.backup;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.stream.Stream;
 
 public class BackupManager {
 
@@ -12,9 +14,7 @@ public class BackupManager {
     }
 
     public void startBackup() {
-        var backupLocations = backupMetadataLoader.loadSourceLocations();
         var targetLocation = backupMetadataLoader.loadTargetLocation();
-
         if (!targetLocation.exists()) {
             try {
                 Files.createDirectories(targetLocation.location());
@@ -23,18 +23,36 @@ public class BackupManager {
             }
         }
 
-        backupLocations
-                .filter(BackupLocation::exists)
-                .forEach(backupLocation -> copy(backupLocation, targetLocation));
+        try(var backupLocations = backupMetadataLoader.loadSourceLocations()) {
+            backupLocations
+                    .filter(BackupLocation::exists)
+                    .forEach(backupLocation -> {
+                        try {
+                            Path targetDirectory = targetLocation.location().resolve(backupLocation.location().getFileName());
+                            Files.createDirectory(targetDirectory);
+                            copy(backupLocation.location(),targetDirectory);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+        }
+
     }
 
-    private void copy(BackupLocation sourceLocation, BackupLocation targetLocation) {
+    private void copy(Path sourceLocation, Path targetLocation) {
         System.out.println("Source: " + sourceLocation + " Target: " + targetLocation);
-        try {
+        try (Stream<Path> fileList = Files.list(sourceLocation)){
             System.out.println("Copying files...");
-            Files.list(sourceLocation.location()).forEach(path -> {
+            fileList.forEach(path -> {
                 try {
-                    Files.copy(path, targetLocation.location());
+                    System.out.println(path);
+                    Path targetFile = targetLocation.resolve(path.getFileName());
+                    if(Files.isDirectory(path)) {
+                        Files.createDirectory(targetFile);
+                        copy(path, targetFile);
+                    } else {
+                        Files.copy(path, targetFile);
+                    }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
