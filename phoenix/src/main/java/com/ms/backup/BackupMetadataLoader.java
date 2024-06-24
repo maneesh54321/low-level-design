@@ -5,13 +5,14 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.stream.Stream;
 
 public class BackupMetadataLoader {
 
-    public Stream<BackupLocation> loadSourceLocations() {
+    public static Stream<BackupLocation> loadSourceLocations() {
         try {
             Stream<String> lines = Files.lines(Path.of(Objects.requireNonNull(BackupMetadataLoader.class.getResource("/locations.data")).toURI()));
             return lines.map(line -> {
@@ -23,7 +24,7 @@ public class BackupMetadataLoader {
         }
     }
 
-    public BackupLocation loadTargetLocation() {
+    public static BackupLocation loadTargetLocation() {
         Properties properties = new Properties();
         try (InputStream propertiesFileStream = BackupMetadataLoader.class.getResourceAsStream("/application.properties")) {
             properties.load(propertiesFileStream);
@@ -32,5 +33,9 @@ public class BackupMetadataLoader {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Map<Path, String> loadCurrentBackupHash(){
+        return null;
     }
 }

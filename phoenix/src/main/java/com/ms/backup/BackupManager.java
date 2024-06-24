@@ -7,14 +7,14 @@ import java.util.stream.Stream;
 
 public class BackupManager {
 
-    private final BackupMetadataLoader backupMetadataLoader;
+    private DiffFinder diffFinder;
 
-    public BackupManager(BackupMetadataLoader backupMetadataLoader) {
-        this.backupMetadataLoader = backupMetadataLoader;
+    public BackupManager(DiffFinder diffFinder) {
+        this.diffFinder = diffFinder;
     }
 
     public void startBackup() {
-        var targetLocation = backupMetadataLoader.loadTargetLocation();
+        var targetLocation = BackupMetadataLoader.loadTargetLocation();
         if (!targetLocation.exists()) {
             try {
                 Files.createDirectories(targetLocation.location());
@@ -23,14 +23,14 @@ public class BackupManager {
             }
         }
 
-        try(var backupLocations = backupMetadataLoader.loadSourceLocations()) {
+        try (var backupLocations = BackupMetadataLoader.loadSourceLocations()) {
             backupLocations
                     .filter(BackupLocation::exists)
                     .forEach(backupLocation -> {
                         try {
                             Path targetDirectory = targetLocation.location().resolve(backupLocation.location().getFileName());
                             Files.createDirectory(targetDirectory);
-                            copy(backupLocation.location(),targetDirectory);
+                            copy(backupLocation.location(), targetDirectory);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -41,17 +41,22 @@ public class BackupManager {
 
     private void copy(Path sourceLocation, Path targetLocation) {
         System.out.println("Source: " + sourceLocation + " Target: " + targetLocation);
-        try (Stream<Path> fileList = Files.list(sourceLocation)){
+        try (Stream<Path> fileList = Files.list(sourceLocation)) {
             System.out.println("Copying files...");
             fileList.forEach(path -> {
                 try {
                     System.out.println(path);
                     Path targetFile = targetLocation.resolve(path.getFileName());
-                    if(Files.isDirectory(path)) {
+                    if (Files.isDirectory(path)) {
                         Files.createDirectory(targetFile);
                         copy(path, targetFile);
                     } else {
-                        Files.copy(path, targetFile);
+                        if (diffFinder.isDifferent(path, targetFile)) {
+                            System.out.println("Copying file..");
+                            Files.copy(path, targetFile);
+                        } else {
+                            System.out.println("Skipping as the file has not changed... b    ");
+                        }
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
