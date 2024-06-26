@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class SeatPriceCatalog {
+
     private final SeatingLayout seatingLayout;
     private final Map<Integer, Integer> seatGroupPriceMap;
 

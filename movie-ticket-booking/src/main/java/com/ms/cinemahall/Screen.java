@@ -28,4 +28,9 @@ public record Screen(String screenNo, List<ShowSchedule> showSchedules, SeatingL
     public void removeShowSchedule(ShowSchedule showSchedule) {
         showSchedules.remove(showSchedule);
     }
+
+    public boolean hasSeat(Seat seat) {
+        return seatingLayout.seatGroups().stream().flatMap(seatGroup -> seatGroup.seats().stream())
+            .anyMatch(st -> st.equals(seat));
+    }
 }
