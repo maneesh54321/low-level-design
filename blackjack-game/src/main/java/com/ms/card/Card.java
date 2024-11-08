@@ -44,7 +44,7 @@ public final class Card {
 	@Override
 	public String toString() {
 		return "Card" +
-				(hidden ? "" : "[face=" + face + ", " +
+				(hidden ? "[###]" : "[face=" + face + ", " +
 				"suit=" + suit + "]");
 	}
 

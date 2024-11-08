@@ -11,7 +11,7 @@ public abstract class Player {
 
 	private Hand hand;
 
-	public Player(String name) {
+	protected Player(String name) {
 		this.name = name;
 	}
 

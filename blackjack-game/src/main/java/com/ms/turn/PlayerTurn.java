@@ -28,13 +28,13 @@ public class PlayerTurn extends Turn<CasinoPlayer> {
 					2. STAND
 					""");
 			var action = Integer.parseInt(sc.nextLine());
-			if (action == 1) {
-				getGame().play(getPlayer(), Action.HIT);
-			} else if (action == 2) {
-				getGame().play(getPlayer(), Action.STAND);
-				handleTurnOver();
-			} else {
-				System.out.println("Invalid choice!!");
+			switch (action) {
+				case 1 -> getGame().play(getPlayer(), Action.HIT);
+				case 2 -> {
+					getGame().play(getPlayer(), Action.STAND);
+					handleTurnOver();
+				}
+				default -> System.out.println("Invalid choice!!");
 			}
 		}
 	}
@@ -44,7 +44,7 @@ public class PlayerTurn extends Turn<CasinoPlayer> {
 	}
 
 	private void handleBust() {
-		getGame().declareLoser((CasinoPlayer) getPlayer());
+		getGame().declareLoser(getPlayer());
 		over();
 	}
 

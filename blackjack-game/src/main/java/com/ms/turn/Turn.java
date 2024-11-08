@@ -11,7 +11,7 @@ public abstract class Turn<T extends Player> {
 
 	private final Game game;
 
-	public Turn(T player, Game game) {
+	protected Turn(T player, Game game) {
 		this.player = player;
 		this.game = game;
 		shouldContinue = true;
@@ -23,7 +23,7 @@ public abstract class Turn<T extends Player> {
 		}
 	}
 
-	abstract public void play();
+	public abstract void play();
 
 	public T getPlayer() {
 		return player;

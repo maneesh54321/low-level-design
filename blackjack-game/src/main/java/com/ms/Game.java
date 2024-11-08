@@ -17,6 +17,7 @@ import com.ms.player.Table;
 import com.ms.turn.DealerTurn;
 import com.ms.turn.PlayerTurn;
 import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
@@ -43,7 +44,7 @@ public class Game {
 		var players = new HashSet<CasinoPlayer>();
 		this.table = new Table(players, dealer);
 
-		this.actionHandlers = new HashMap<>();
+		this.actionHandlers = new EnumMap<>(Action.class);
 		actionHandlers.put(Action.HIT, new HitActionHandler(this));
 		actionHandlers.put(Action.STAND, new StandActionHandler());
 	}
@@ -74,16 +75,14 @@ public class Game {
 	}
 
 	public void declareWinner(CasinoPlayer player, Money money) {
-		System.out.printf("Player %s has won!!\n", player);
-		var gambler = (Gambler) player;
-		gambler.win(new Reward(bets.get(gambler), money.getValue()));
+		System.out.printf("Player %s has won!!%n", player);
+		player.win(new Reward(bets.get(player), money.getValue()));
 		table.removePlayer(player);
 	}
 
 	public void declareLoser(CasinoPlayer player) {
-		System.out.printf("Player %s lost the game!!\n", player);
-		var gambler = (Gambler) player;
-		gambler.lose(bets.get(gambler));
+		System.out.printf("Player %s lost the game!!%n", player);
+		player.lose(bets.get(player));
 		table.removePlayer(player);
 	}
 
