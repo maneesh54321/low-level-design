@@ -1,7 +1,6 @@
 package com.ms.turn;
 
 import com.ms.Game;
-import com.ms.action.Action;
 import com.ms.money.Bet;
 import com.ms.money.Money;
 import com.ms.player.CasinoPlayer;
@@ -29,9 +28,9 @@ public class PlayerTurn extends Turn<CasinoPlayer> {
 					""");
 			var action = Integer.parseInt(sc.nextLine());
 			switch (action) {
-				case 1 -> getGame().play(getPlayer(), Action.HIT);
+				case 1 -> getGame().hit(getPlayer());
 				case 2 -> {
-					getGame().play(getPlayer(), Action.STAND);
+					getGame().stand(getPlayer());
 					handleTurnOver();
 				}
 				default -> System.out.println("Invalid choice!!");

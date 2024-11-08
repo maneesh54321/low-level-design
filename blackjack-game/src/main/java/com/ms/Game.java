@@ -1,9 +1,6 @@
 package com.ms;
 
-import com.ms.action.Action;
-import com.ms.action.ActionHandler;
-import com.ms.action.HitActionHandler;
-import com.ms.action.StandActionHandler;
+import com.ms.action.*;
 import com.ms.card.CardShuffler;
 import com.ms.card.Shoe;
 import com.ms.money.Bet;
@@ -30,27 +27,27 @@ public class Game {
 
 	private final Table table;
 
-	private final Map<Action, ActionHandler> actionHandlers;
+	private final GameAction hitAction = new HitAction(this);
+
+	private final GameAction standAction = new StandAction();
 
 	private final Shoe shoe;
+
+	private final CardShuffler cardShuffler;
 
 	public Game() {
 		this.bets = new HashMap<>();
 		this.shoe = new Shoe();
-		var cardShuffler = new CardShuffler();
-		this.shoe.setDeck(cardShuffler.shuffle(shoe.getDeck()));
+        this.cardShuffler = new CardShuffler();
 
 		var dealer = new Dealer("Dealer", this);
 		var players = new HashSet<CasinoPlayer>();
 		this.table = new Table(players, dealer);
-
-		this.actionHandlers = new EnumMap<>(Action.class);
-		actionHandlers.put(Action.HIT, new HitActionHandler(this));
-		actionHandlers.put(Action.STAND, new StandActionHandler());
 	}
 
 	public void start() {
 		System.out.println("Starting game..");
+		this.shoe.setDeck(cardShuffler.shuffle(shoe.getDeck()));
 
 		Dealer dealer = table.dealer();
 		dealer.dealHands();
@@ -108,7 +105,11 @@ public class Game {
 		return bets.get(gambler);
 	}
 
-	public void play(Player player, Action action) {
-		actionHandlers.get(action).handle(player);
+	public void hit(Player player) {
+		hitAction.execute(player);
+	}
+
+	public void stand(Player player) {
+		standAction.execute(player);
 	}
 }

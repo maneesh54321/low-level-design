@@ -1,7 +1,6 @@
 package com.ms.turn;
 
 import com.ms.Game;
-import com.ms.action.Action;
 import com.ms.money.Bet;
 import com.ms.money.Reward;
 import com.ms.player.Dealer;
@@ -23,11 +22,11 @@ public class DealerTurn extends Turn<Dealer> {
 			handleBust();
 			over();
 		} else if (isDealerTurnOver()) {
-			getGame().play(dealer, Action.STAND);
+			getGame().stand(dealer);
 			handleGameCompletion();
 			over();
 		} else {
-			getGame().play(dealer, Action.HIT);
+			getGame().hit(dealer);
 		}
 	}
 
@@ -43,7 +42,7 @@ public class DealerTurn extends Turn<Dealer> {
 			getGame().getTable().players().forEach(casinoPlayer -> {
 				// else, all players having
 				if (casinoPlayer.getHand().getTotalValue() > dealer.getHand().getTotalValue()) {
-					// 1. more value than dealer win
+					// 1. more value then dealer win
 					Bet bet = getGame().getBet(casinoPlayer);
 					getGame().declareWinner(casinoPlayer,
 							new Reward(bet, bet.getValue() + bet.getValue() / 2));

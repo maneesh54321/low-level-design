@@ -9,6 +9,7 @@ public class CardShuffler {
 	private static final Random RANDOM = new Random();
 
 	public List<Card> shuffle(List<Card> cards) {
+		System.out.println("Shuffling cards...");
 		List<Card> shuffledCards = new LinkedList<>();
 		cards.forEach(card -> {
 			int cardIndex = RANDOM.nextInt(52);
